@@ -13,12 +13,13 @@ def vul_add(request):
         vul = VulRecord()
         vul.vul_finder = request.user
         vul.vul_type = request.POST.get('type')
+        vul.vul_payload = request.POST.get('payload')
         vul.vul_url = request.POST.get('url')
         vul.vul_process = request.POST.get('process')
         vul.vul_score = request.POST.get('score')
+        vul.vul_fix = request.POST.get('fix')
         vul.vul_image = request.FILES['image']
         vul.save()
-        print(request.FILES)
         return HttpResponse('待审核')
     else:
         pass
