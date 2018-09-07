@@ -20,14 +20,11 @@ def home(request):
         for w in range(1, now + 1):
             weekblogs[str(w)] = []
             blog = Blog.objects.filter(week=w)
-            # print blog.count()
             if blog.count() <= 5:
                 m = blog.count()
             else:
                 m = 5
             for b in range(0, m):
-                # print str(w)
-                # print weekblogs
                 weekblogs[str(w)].append(blog[b])
     a = sorted(weekblogs.items(), key=lambda d: d[0])
     context['weekblogs'] = a
