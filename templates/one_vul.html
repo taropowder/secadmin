@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<li>{{ vul.id }}</li>
+<li>{{ vul.vul_finder }}</li>
+<li>{{ vul.vul_url }}</li>
+<li>{{ vul.vul_payload }}</li>
+<li>{{ vul.get_vul_type_display }}</li>
+<li><img src="/static/{{ vul.vul_image }}"/></li>
+<form action="/vul_reviewed/" method="post">
+    {% csrf_token %}
+    <input name="id" value="{{ vul.id }}" type="hidden">
+    <input value="{{ vul.vul_score }}" name="score">
+<input type="submit"></form>
+</body>
+</html>

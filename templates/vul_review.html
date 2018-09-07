@@ -6,7 +6,8 @@
     <title></title>
 </head>
 <body>
-<h1>register</h1>
+<a href="/vul_review">待审核漏洞</a>
+<a href="/vul_reviewed">已审核漏洞</a>
 {% for foo in vuls %}
     <li><a href="?id={{ foo.id }}"> {{ foo }}  </a>  作者：{{ foo.vul_finder }}</li>
 {% endfor %}
