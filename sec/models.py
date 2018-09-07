@@ -76,3 +76,5 @@ class VulRecord(models.Model):
     vul_image = models.ImageField(upload_to='vul/%Y/%m', verbose_name="复现图", null=True, blank=True)
     vul_fix = models.TextField(null=True)
 
+    def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
+        return self.vul_url + self.vul_type
