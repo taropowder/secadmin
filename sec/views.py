@@ -177,9 +177,7 @@ def onduty(request):
             for y in WEEK:
                 for x in range(1, 7):
                     weektime = y + str(x)
-                    # print request.POST.get(weektime)
                     if request.POST.get(weektime) == 'on':
-                        # print weektime
                         oldpeople = ON_DUTY.objects.filter(time=weektime)
                         if oldpeople:
                             if name not in oldpeople[0].name:
@@ -194,12 +192,9 @@ def onduty(request):
             weektime = y + str(x)
             people = ON_DUTY.objects.filter(time=weektime)
             if people:
-                # print people[0].name
                 dutys[y].append(people[0].name)
             else:
                 dutys[y].append('无')
-        # print dutys[y]
-    # print dutys
     duty = {}
     duty['Mon'] = dutys['Mon']
     context['duty'] = dutys
