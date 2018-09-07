@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>第{{ week }}周博客</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>姓名</th>
+													<th>标题</th>
+													<th>网址</th>
+                                                    <th>方向</th>
+                                                    <th>时间</th>
+												</tr>
+											</thead>
+											<tbody>
+                                            {% for blog in blogs %}
+                                            <tr>
+													<td><a href="/myblog/{{ blog.blog_user.id }}/">{{ blog.blog_user }}</a> </td>
+													<td><a href="{{  blog.url}}" target="_blank">{{  blog.content}}</a></td>
+													<td>{{  blog.url}}</td>
+                                                    <td>{{ blog.direction }}</td>
+													<td>{{ blog.time }}</td>
+												</tr>
+                                            {% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+                            <div align="center">
+                                 <a href="/myblog/{{ man }}/" class="button special" >Random Show</a>
+                            </div>
+
+							</div>
+						</section>
+
+					</article>
+
+{% endblock %}

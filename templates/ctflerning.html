@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>CTF 学习资料库</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>标题</th>
+													<th>类别</th>
+
+												</tr>
+											</thead>
+											<tbody>
+{#                                            {% for blog in blogs %}#}
+{#                                            <tr>#}
+{#													<td><a href="/myblog/{{ blog.blog_user.id }}/">{{ blog.blog_user }}</a> </td>#}
+{#													<td><a href="{{  blog.url}}" target="_blank">{{  blog.content}}</a></td>#}
+{#													<td>{{  blog.url}}</td>#}
+{#                                                    <td>{{ blog.direction }}</td>#}
+{#													<td>{{ blog.time }}</td>#}
+{#												</tr>#}
+{#                                            {% endfor %}#}
+                                            {% for foo in ctf %}
+                                                <tr>
+                                            <td><a href="{{ foo.url }}/" target="_blank">{{ foo.title }}</a> </td>
+													<td>{{ foo.type }}</td>
+                                                </tr>
+                                            {% endfor %}
+
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+
+							</div>
+						</section>
+
+					</article>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+
+
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>你好{{ request.session.username }}请在这里提交本周博客</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<form method="post" action="/submit/">
+										<div class="row uniform">
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="content"  value="" placeholder="博客标题" />
+											</div>
+											<div class="6u$ 12u$(xsmall)">
+												<input type="text" name="url"  value="" placeholder="博客地址" />
+											</div>
+											<div class="12u$">
+												<div class="select-wrapper">
+													<select name="direction" id="demo-category">
+														<option value="">- 学习内容方向 -</option>
+														<option value="web">web</option>
+														<option value="二进制">二进制</option>
+														<option value="开发">开发</option>
+														<option value="其他">其他</option>
+													</select>
+												</div>
+											<div class="12u$">
+												<ul class="actions">
+                                                    {% csrf_token %}
+													<li><input type="submit" value="提交博客" class="special" /></li>
+													<li><input type="reset" value="重置" /></li>
+												</ul>
+											</div>
+										</div>
+									</form>
+								</section>
+
+
+<script>
+	a={{ statu }};
+	if (a==1){
+	    alert('{{ error }}');
+    }
+</script>
+							</div>
+						</section>
+					</article>
+
+{% endblock %}

@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+
+
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>值班表</h2>
+                            <h4>请选择来的几率较大的时间便于安排值班(可多选)</h4>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+                                                    <th>时间</th>
+													<th>上午第一节课</th>
+													<th>上午第二节课</th>
+                                                    <th>下午第三节课</th>
+                                                    <th>下午第四节课</th>
+                                                    <th>晚上</th>
+
+												</tr>
+											</thead>
+											<tbody>
+{#{% f %}#}
+{#                                                {% for foo in conut %}#}
+{#                                                    <tr>#}
+{#                                                {% for f in duty.foo %}#}
+{#                                                <td>{{  f }}</td>#}
+{#                                                {% endfor %}#}
+{#                                                </tr>#}
+{#                                                {% endfor %}#}
+                                                <tr>
+                                                    <td>周一</td>
+                                                 {% for m in duty.Mon %}
+                                                        <td>{{ m }}</td>
+                                                 {% endfor %}
+                                                </tr>
+                                                <tr>
+                                                    <td>周二</td>
+                                                 {% for m in duty.Tue %}
+                                                        <td>{{ m }}</td>
+                                                 {% endfor %}
+                                                </tr>
+                                                <tr>
+                                                    <td>周三</td>
+                                                 {% for m in duty.Wed %}
+                                                        <td>{{ m }}</td>
+                                                 {% endfor %}
+                                                </tr>
+                                                <tr>
+                                                    <td>周四</td>
+                                                 {% for m in duty.Tur %}
+                                                        <td>{{ m }}</td>
+                                                 {% endfor %}
+                                                </tr>
+                                                <tr>
+                                                    <td>周五</td>
+                                                 {% for m in duty.Fri %}
+                                                        <td>{{ m }}</td>
+                                                 {% endfor %}
+                                                </tr>
+                                                <tr>
+                                                    <td>周六</td>
+                                                 {% for m in duty.Sat %}
+                                                        <td>{{ m }}</td>
+                                                 {% endfor %}
+                                                </tr>
+                                                <tr>
+                                                    <td>周日</td>
+                                                 {% for m in duty.Sun %}
+                                                        <td>{{ m }}</td>
+                                                 {% endfor %}
+                                                </tr>
+
+                                                
+{#                                                 {% for foo in conut %}#}
+{#                                                      <tr>#}
+{#                                                      <td>{{ foo }}</td>#}
+
+{#                                                    <tr>#}
+{#                                                    <td>上午第一节课</td>#}
+{#                                                    <td>{{ duty.Mon.0 }}</td>#}
+{#                                                 <td>{{ duty.Tue.0 }}</td>#}
+{#                                                        <td>{{ duty.Wed.0 }}</td>#}
+{#                                                 <td>{{ duty.Tur.0 }}</td>#}
+{#                                                    <td>{{ duty.Fri.0 }}</td>#}
+{#                                                 <td>{{ duty.Sat.0 }}</td>#}
+{#                                                       <td>{{ duty.Sun.0 }}</td>#}
+{#                                                </tr>#}
+{#                                                    <tr>#}
+{#                                                    <td>上午第二节课</td>#}
+{#                                                    <td>{{ duty.Mon.1 }}</td>#}
+{#                                                 <td>{{ duty.Tue.1 }}</td>#}
+{#                                                        <td>{{ duty.Wed.1 }}</td>#}
+{#                                                 <td>{{ duty.Tur.1 }}</td>#}
+{#                                                    <td>{{ duty.Fri.1 }}</td>#}
+{#                                                 <td>{{ duty.Sat.1 }}</td>#}
+{#                                                       <td>{{ duty.Sun.1 }}</td>#}
+{#                                                </tr>#}
+{#                                                    <tr>#}
+{#                                                    <td>下午第三节课</td>#}
+{#                                                    <td>{{ duty.Mon.2 }}</td>#}
+{#                                                 <td>{{ duty.Tue.2 }}</td>#}
+{#                                                        <td>{{ duty.Wed.2 }}</td>#}
+{#                                                 <td>{{ duty.Tur.2 }}</td>#}
+{#                                                    <td>{{ duty.Fri.2 }}</td>#}
+{#                                                 <td>{{ duty.Sat.2 }}</td>#}
+{#                                                       <td>{{ duty.Sun.2 }}</td>#}
+{#                                                </tr>#}
+{#                                                    <tr>#}
+{#                                                    <td>下午第四节课</td>#}
+{#                                                    <td>{{ duty.Mon.3 }}</td>#}
+{#                                                 <td>{{ duty.Tue.3 }}</td>#}
+{#                                                        <td>{{ duty.Wed.3 }}</td>#}
+{#                                                 <td>{{ duty.Tur.3 }}</td>#}
+{#                                                    <td>{{ duty.Fri.3 }}</td>#}
+{#                                                 <td>{{ duty.Sat.3 }}</td>#}
+{#                                                       <td>{{ duty.Sun.3 }}</td>#}
+{#                                                </tr>#}
+{#                                                    <tr>#}
+{#                                                    <td>晚上</td>#}
+{#                                                    <td>{{ duty.Mon.4 }}</td>#}
+{#                                                 <td>{{ duty.Tue.4 }}</td>#}
+{#                                                        <td>{{ duty.Wed.4 }}</td>#}
+{#                                                 <td>{{ duty.Tur.4 }}</td>#}
+{#                                                    <td>{{ duty.Fri.4 }}</td>#}
+{#                                                 <td>{{ duty.Sat.4 }}</td>#}
+{#                                                       <td>{{ duty.Sun.4 }}</td>#}
+{#                                                </tr>#}
+
+                                                
+
+
+{#                                                      </tr>#}
+{#                                                 {% endfor %}#}
+
+											</tbody>
+										</table>
+                                         <form action="/onduty/" method="post">
+                                <input type="checkbox" id="Mon1" name="Mon1">
+                                <label for="Mon1">周一上午第一节课</label>
+                                <input type="checkbox" id="Mon2" name="Mon2">
+                                <label for="Mon2">周一上午第二节课</label>
+                                <input type="checkbox" id="Mon3" name="Mon3">
+                                <label for="Mon3">周一下午第三节课</label>
+                                <input type="checkbox" id="Mon4" name="Mon4">
+                                <label for="Mon4">周一下午第四节课</label>
+                                 <input type="checkbox" id="Mon5" name="Mon5">
+                                <label for="Mon5">周一晚上</label>
+                                                   <input type="checkbox" id="Tue1" name="Tue1">
+                                <label for="Tue1">周二上午第一节课</label>
+                                <input type="checkbox" id="Tue2" name="Tue2">
+                                <label for="Tue2">周二上午第二节课</label>
+                                <input type="checkbox" id="Tue3" name="Tue3">
+                                <label for="Tue3">周二下午第三节课</label>
+                                <input type="checkbox" id="Tue4" name="Tue4">
+                                <label for="Tue4">周二下午第四节课</label>
+                                 <input type="checkbox" id="Tue5" name="Tue5">
+                                <label for="Tue5">周二晚上</label>
+                                                                                                <input type="checkbox" id="Wed1" name="Wed1">
+                                <label for="Wed1">周三上午第一节课</label>
+                                <input type="checkbox" id="Wed2" name="Wed2">
+                                <label for="Wed2">周三上午第二节课</label>
+                                <input type="checkbox" id="Wed3" name="Wed3">
+                                <label for="Wed3">周三下午第三节课</label>
+                                <input type="checkbox" id="Wed4" name="Wed4">
+                                <label for="Wed4">周三下午第四节课</label>
+                                 <input type="checkbox" id="Wed5" name="Wed5">
+                                <label for="Wed5">周三晚上</label>
+                                                                                                <input type="checkbox" id="Tur1" name="Tur1">
+                                <label for="Tur1">周四上午第一节课</label>
+                                <input type="checkbox" id="Tur2" name="Tur2">
+                                <label for="Tur2">周四上午第二节课</label>
+                                <input type="checkbox" id="Tur3" name="Tur3">
+                                <label for="Tur3">周四下午第三节课</label>
+                                <input type="checkbox" id="Tur4" name="Tur4">
+                                <label for="Tur4">周四下午第四节课</label>
+                                 <input type="checkbox" id="Tur5" name="Tur5">
+                                <label for="Tur5">周四晚上</label>
+                                             <input type="checkbox" id="Fri1" name="Fri1">
+                                <label for="Fri1">周五上午第一节课</label>
+                                <input type="checkbox" id="Fri2" name="Fri2">
+                                <label for="Fri2">周五上午第二节课</label>
+                                <input type="checkbox" id="Fri3" name="Fri3">
+                                <label for="Fri3">周五下午第三节课</label>
+                                <input type="checkbox" id="Fri4" name="Fri4">
+                                <label for="Fri4">周五下午第四节课</label>
+                                 <input type="checkbox" id="Fri5" name="Fri5">
+                                <label for="Fri5">周五晚上</label>
+                                             <input type="checkbox" id="Sat1" name="Sat1">
+                                <label for="Sat1">周六上午第一节课</label>
+                                <input type="checkbox" id="Sat2" name="Sat2">
+                                <label for="Sat2">周六上午第二节课</label>
+                                <input type="checkbox" id="Sat3" name="Sat3">
+                                <label for="Sat3">周六下午第三节课</label>
+                                <input type="checkbox" id="Sat4" name="Sat4">
+                                <label for="Sat4">周六下午第四节课</label>
+                                 <input type="checkbox" id="Sat5" name="Sat5">
+                                <label for="Sat5">周六晚上</label>
+                                             <input type="checkbox" id="Sun1" name="Sun1">
+                                <label for="Sun1">周日上午第一节课</label>
+                                <input type="checkbox" id="Sun2" name="Sun2">
+                                <label for="Sun2">周日上午第二节课</label>
+                                <input type="checkbox" id="Sun3" name="Sun3">
+                                <label for="Sun3">周日下午第三节课</label>
+                                <input type="checkbox" id="Sun4" name="Sun4">
+                                <label for="Sun4">周日下午第四节课</label>
+                                 <input type="checkbox" id="Sun5" name="Sun5">
+                                <label for="Sun5">周日晚上</label>
+                                {% csrf_token %}
+                                             <br>
+                                             {% if request.session.username  %}
+                                             {% else %}
+                                                 姓名<input type="text" name="name"><br/>
+                                             {% endif %}
+
+                                                   <div align="center">
+
+                                 <input type="submit" class="button special" value="确定">
+                            </div>
+</form>
+									</div>
+								</section>
+
+
+
+							</div>
+						</section>
+					</article>
+
+{% endblock %}

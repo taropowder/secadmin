@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+
+
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>成员注册</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<form method="post" action="/register/">
+										<div class="row uniform">
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="name"   placeholder="昵称" />
+											</div>
+											<div class="6u$ 12u$(xsmall)">
+												<input type="password" name="password"   placeholder="密码" />
+											</div>
+                                            <div class="6u$ 12u$(xsmall)">
+												<input type="text" name="firstname"   placeholder="姓名" />
+											</div>
+                                             <div class="6u$ 12u$(xsmall)">
+												<input type="text" name="eamil"   placeholder="email" />
+											</div>
+											<div class="12u$">
+												<ul class="actions">
+													       {% csrf_token %}
+													<li><input type="submit" value="注册" class="special" /></li>
+													<li><input type="reset" value="重置" /></li>
+												</ul>
+											</div>
+										</div>
+									</form>
+								</section>
+
+
+
+							</div>
+						</section>
+					</article>
+    <script>
+        a={{ statu }};
+        if (a==1){
+            alert('{{ error }}');
+        }
+        </script>
+
+{% endblock %}

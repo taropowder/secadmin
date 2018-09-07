@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>711实验室博客提交平台</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/static/assets/css/main.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="/static/assets/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="/static/assets/css/ie9.css" /><![endif]-->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="assetss/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assetss/css/form-elements.css">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/auto.ico" media="screen" />
+</head>
+<body class="landing">
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <h1><a href="/">711实验室博客提交平台</a></h1>
+        <nav id="nav">
+            <ul>
+                <li class="special">
+                    <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                    <div id="menu">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/ctflerning">CTF资料库</a></li>
+                            <li><a href="/book">图书管理</a></li>
+                            <li><a href="/onduty/">值班表</a></li>
+
+
+                            {% if request.session.username %}
+                                <li><a href="/submit">博客提交</a></li>
+                                <li><a href="/myblog/{{ request.session.id }}/">我的提交</a></li>
+                                <li><a href="/changeblog/">修改我的提交</a></li>
+                                <li><a href="/search/">博客搜索</a></li>
+                                <li><a href="/classification/">博客分类</a></li>
+                            <li><a href="/logout">登出</a></li>
+                                {% else %}
+
+                                <li><a href="/login">登录</a></li>
+{#                            <li><a href="/register">注册</a></li>#}
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    {% block root %}
+
+    {% endblock %}
+    					<footer id="footer">
+						<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+							<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy; 版权所有711实验室</li><li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/static/assets/js/skel.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/static/assets/js/main.js"></script>
+
+
+	</body>
+</html>

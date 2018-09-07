@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+
+
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>图书</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+
+													<th>书名</th>
+                                                    <th>图片</th>
+													<th>是否借出</th>
+                                                    <th>类型</th>
+                                                    <th>借出时间</th>
+                                                    <th>借出人</th>
+                                                    <th>借阅</th>
+												</tr>
+											</thead>
+											<tbody>
+                                            {% for book in books %}
+                                            <tr>
+													<td>{{ book.name }}</td>
+                                                    <td><img class="center-block thumbnail" src="/{{ book.image.url }}" alt="" height="100" width="80"/></td>
+													<td>{% if book.is_lend %}已借出{% else %}未借出{% endif %}</td>
+                                                    <td>{{ book.get_type_display }}</td>
+													<td>{% if book.lend_time %}{{ book.lend_time|date:"Y-m-d H:i:s" }}{% else %}未借出{% endif %}</td>
+                                                    <td>{{ book.lend_people.first_name }}</td>
+
+                                                {% if request.session.username and book.lend_people.username == request.session.username %}
+                                                <td><a href="/back?id={{ book.id }}" class="button special small">还书</a></td>
+                                                    {% else %}
+                                                     <td><a href="/lend?id={{ book.id }}" class="button special {% if book.is_lend %}disabled{% else %}small{% endif %}">借阅</a></td>
+                                                {% endif %}
+
+
+												</tr>
+                                            {% endfor %}
+
+
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+
+
+							</div>
+						</section>
+					</article>
+
+{% endblock %}

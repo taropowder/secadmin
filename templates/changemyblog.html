@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+
+
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>{{ request.session.username }}的博客</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+
+													<th>标题</th>
+													<th>网址</th>
+                                                    <th>方向</th>
+                                                    <th>时间</th>
+                                                    <th>修改</th>
+												</tr>
+											</thead>
+											<tbody>
+                                            {% for blog in blogs %}
+                                            <tr>
+                                                <form method="post" action="/change/{{ blog.id }}/">
+                                                    <td><input  type="text"  name='content' value="{{  blog.content}}"></td>
+													<td><input  type="text"  name='url' value="{{  blog.url}}"></td>
+                                                    <td>{{  blog.direction}}</td>
+													<td>{{ blog.time }}</td>
+                                                    {% csrf_token %}
+                                                    <td><input type="submit" class="button special" value="修改"></td>
+												</tr>
+                                                </form>
+{#													<td>{{ blog.blog_user }}</td>#}
+
+                                            {% endfor %}
+
+
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+
+
+							</div>
+						</section>
+					</article>
+
+{% endblock %}
