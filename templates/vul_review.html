@@ -1,16 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title></title>
-</head>
-<body>
-<a href="/vul_review">待审核漏洞</a>
-<a href="/vul_reviewed">已审核漏洞</a>
-{% for foo in vuls %}
-    <li><a href="?id={{ foo.id }}"> {{ foo }}  </a>  作者：{{ foo.vul_finder }}</li>
-{% endfor %}
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>待审核漏洞</h2>
 
-</body>
-</html>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>名称</th>
+													<th>报告人</th>
+												</tr>
+											</thead>
+											<tbody>
+
+                                                {% for vul in vuls %}
+                                                    <tr>
+                                                    <td><a  href="?id={{ vul.id }}">{{ vul }}</a> </td>
+													<td><a href="/vuler?id={{ vul.vul_finder }}" >{{ vul.vul_finder}}</a></td>
+                                                    </tr>
+                                                {% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+
+							</div>
+						</section>
+
+					</article>
+
+{% endblock %}
