@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import datetime
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
