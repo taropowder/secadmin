@@ -5,7 +5,6 @@ from .models import VulRecord
 from django.contrib.auth.decorators import login_required
 
 
-
 @login_required
 def vul_add(request):
     context = {}
@@ -25,6 +24,7 @@ def vul_add(request):
         pass
     return render(request, 'vul_add.html', context)
 
+
 @login_required
 def vul_review(request):
     context = {}
@@ -32,7 +32,7 @@ def vul_review(request):
         if request.user.is_staff:
             vul = VulRecord.objects.get(id=request.GET.get('id'))
             context['vul'] = vul
-            vuls_like = VulRecord.objects.filter(vul_url__contains=vul.vul_url)
+            vuls_like = VulRecord.objects.filter(vul_url__contains=vul.vul_url, vul_review=True)
             context['vuls_like'] = vuls_like
             return render(request, 'one_vul.html', context)
         else:
@@ -46,6 +46,7 @@ def vul_review(request):
         vuls = VulRecord.objects.filter(vul_review=False)
         context['vuls'] = vuls
         return render(request, 'vul_review.html', context)
+
 
 @login_required
 def vul_reviewed(request):
