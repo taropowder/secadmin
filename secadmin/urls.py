@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^vul_review/$', vul.vul_review),
     url(r'^vul_add/$', vul.vul_add),
     url(r'^vul_reviewed/', vul.vul_reviewed),
+    url(r'^my_vul/', vul.my_vul),
     url(r'^login/', views.user_login),
     url(r'^changeblog/', views.changeblog),
     url(r'^change/(\d+)/', views.change,name='change_id'),

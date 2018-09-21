@@ -1,10 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>{{ vul }}</h2>
 
-</body>
-</html>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+                                        <form method="post" action="/vul_reviewed/">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    ID
+                                                </td>
+                                                <td>
+                                                    {{ vul.id }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    报告人
+                                                </td>
+                                                <td>
+                                                    {{ vul.vul_finder }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    报告时间
+                                                </td>
+                                                <td>
+                                                    {{ vul.vul_time | date:'Y-n-d H:i' }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    漏洞类型
+                                                </td>
+                                                <td>
+                                                    {{ vul.get_vul_type_display }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    PAYLOAD
+                                                </td>
+                                                <td>
+                                                    {{ vul.vul_payload }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    复现过程
+                                                </td>
+                                                <td>
+                                                    {{ vul.vul_process }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    复现图片
+                                                </td>
+                                                <td>
+                                                    <a href="/static/{{ vul.vul_image }}"><img src="/static/{{ vul.vul_image }}" height="100px" width="200px"/></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    修复意见
+                                                </td>
+                                                <td>
+                                                    {{ vul.vul_fix }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    漏洞积分
+                                                </td>
+                                                <td>
+                                                    {{ vul.vul_score }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    是否一血
+                                                </td>
+                                                <td>
+												    {{ vul.vul_frist }}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        </form>
+                                        {% if vuls_like %}
+                                            <h2>类似漏洞</h2>
+                                        {% for foo in vuls_like %}
+                                            <li><a href="?id={{ vul.id }}">{{ foo }}</a> </li>
+                                        {% endfor %}
+                                        {% endif %}
+
+                                        
+									</div>
+								</section>
+
+
+							</div>
+						</section>
+
+					</article>
+
+{% endblock %}

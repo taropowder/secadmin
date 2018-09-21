@@ -11,7 +11,7 @@
 							<div class="inner">
 								<section>
 									<div class="table-wrapper">
-                                        <form method="post">
+                                        <form method="post" action="/vul_reviewed/">
                                         <table>
                                             <tr>
                                                 <td>
@@ -83,6 +83,15 @@
                                                 </td>
                                                 <td>
                                                    <input type="text" name="score" value="{{ vul.vul_score }}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    是否一血
+                                                </td>
+                                                <td>
+												<input type="checkbox" id="first" name="first">
+												<label for="first">确认一血</label>
                                                 </td>
                                             </tr>
                                         </table>

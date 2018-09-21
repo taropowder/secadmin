@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, HttpResponseRedirect
 from .models import VulRecord
 from django.contrib.auth.decorators import login_required
-
+from yarl import URL
 
 @login_required
 def vul_add(request):
@@ -19,7 +18,7 @@ def vul_add(request):
         vul.vul_fix = request.POST.get('fix')
         vul.vul_image = request.FILES['image']
         vul.save()
-        return HttpResponse('待审核')
+        return HttpResponseRedirect('/my_vul/')
     else:
         pass
     return render(request, 'vul_add.html', context)
@@ -32,7 +31,8 @@ def vul_review(request):
         if request.user.is_staff:
             vul = VulRecord.objects.get(id=request.GET.get('id'))
             context['vul'] = vul
-            vuls_like = VulRecord.objects.filter(vul_url__contains=vul.vul_url, vul_review=True)
+            path = URL(vul.vul_url).path
+            vuls_like = VulRecord.objects.filter(vul_url__contains=path, vul_review=True)
             context['vuls_like'] = vuls_like
             return render(request, 'one_vul.html', context)
         else:
@@ -52,12 +52,16 @@ def vul_review(request):
 def vul_reviewed(request):
     context = {}
     if request.POST.get('id'):
+        # 审核通过漏洞
         if request.user.is_staff:
             id = int(request.POST.get('id'))
             vul = VulRecord.objects.get(id=id)
             vul.vul_review = True
             vul.vul_review_people = request.user
             vul.vul_score = request.POST.get('score')
+            if request.POST.get('first'):
+                vul.vul_frist = True
+            print(request.POST.get('first'))
             vul.save()
         else:
             context = {
@@ -66,6 +70,27 @@ def vul_reviewed(request):
                 'code': "history.go(-1);"
             }
             return render(request, 'error.html', context)
+    if request.GET.get('id'):
+        vul = VulRecord.objects.get(id=request.GET.get('id'))
+        context['vul'] = vul
+        context['vul'] = vul
+        path = URL(vul.vul_url).path
+        vuls_like = VulRecord.objects.filter(vul_url__contains=path, vul_review=True)
+        context['vuls_like'] = vuls_like
+        return render(request, 'one_vul_reviewed.html', context)
     vuls = VulRecord.objects.filter(vul_review=True)
     context['vuls'] = vuls
     return render(request, 'vul_review.html', context)
+
+
+@login_required
+def my_vul(request):
+    context = {}
+    vuls = VulRecord.objects.filter(vul_finder=request.user)
+    score = 0
+    for vul in vuls:
+        if vul.vul_review:
+            score = score + vul.vul_score
+    context['vuls'] = vuls
+    context['score'] = score
+    return render(request, 'my_vul.html', context)

@@ -4,7 +4,7 @@
 				<!-- Main -->
 					<article id="main">
 						<header>
-							<h2>审核漏洞</h2>
+							<h2>总积分：{{ score }}</h2>
 
 						</header>
 						<section class="wrapper style5">
@@ -15,7 +15,8 @@
 											<thead>
 												<tr>
 													<th>名称</th>
-													<th>报告人</th>
+													<th>是否通过审核</th>
+													<th>积分</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -23,7 +24,8 @@
                                                 {% for vul in vuls %}
                                                     <tr>
                                                     <td><a  href="?id={{ vul.id }}">{{ vul }}</a> </td>
-													<td><a href="/vuler?id={{ vul.vul_finder }}" >{{ vul.vul_finder}}</a></td>
+                                                    <td> {{ vul.vul_review }}</td>
+													<td>{{ vul.vul_score }} </td>
                                                     </tr>
                                                 {% endfor %}
 											</tbody>

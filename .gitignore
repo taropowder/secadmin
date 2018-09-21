@@ -1,2 +1,4 @@
 *.sqlite3
 .idea/
+sec/migrations/00*
+sec/static/vul/*

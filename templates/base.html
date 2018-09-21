@@ -10,8 +10,8 @@
     <!--[if lte IE 8]><link rel="stylesheet" href="/static/assets/css/ie8.css" /><![endif]-->
     <!--[if lte IE 9]><link rel="stylesheet" href="/static/assets/css/ie9.css" /><![endif]-->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-    <link rel="stylesheet" href="assetss/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assetss/css/form-elements.css">
+    <link rel="stylesheet" href="/static/assetss/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/assetss/css/form-elements.css">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <link rel="shortcut icon" type="image/x-icon" href="/static/auto.ico" media="screen" />
@@ -43,6 +43,7 @@
                                 <li><a href="/search/">博客搜索</a></li>
                                 <li><a href="/classification/">博客分类</a></li>
                                 <li><a href="/vul_add/">提交漏洞</a></li>
+                                <li><a href="/my_vul/">我提交的漏洞</a></li>
                                 {% if request.user.is_staff %}
                                 <li><a href="/vul_review/">待审核漏洞</a></li>
                                 <li><a href="/vul_reviewed/">已审核漏洞</a></li>
