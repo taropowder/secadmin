@@ -4,9 +4,7 @@
 				<!-- Main -->
 					<article id="main">
 						<header>
-							<h2>{% if 'vul_reviewed' in request.path %}
-							已审核漏洞{% else %}待审核漏洞
-							{% endif %}</h2>
+							<h2>积分榜</h2>
 
 						</header>
 						<section class="wrapper style5">
@@ -16,18 +14,23 @@
 										<table>
 											<thead>
 												<tr>
-													<th>名称</th>
-													<th>报告人</th>
+													<th>RANK</th>
+													<th>HACKER</th>
+													<th>FIND  VULS</th>
+													<th>SCORE</th>
 												</tr>
 											</thead>
 											<tbody>
-
+                                            {% with 0 as age %}
                                                 {% for vul in vuls %}
                                                     <tr>
-                                                    <td><a  href="?id={{ vul.id }}">{{ vul }}</a> </td>
-													<td><a href="/vuler?id={{ vul.vul_finder }}" >{{ vul.vul_finder}}</a></td>
+                                                    <td>  {{ age|add:"1" }} </td>
+                                                    <td> {{ vul.vul_finder__username }}</td>
+                                                    <td> {{ vul.vul_score_count }}</td>
+                                                    <td> {{ vul.vul_score_sum }}</td>
                                                     </tr>
                                                 {% endfor %}
+                                            {% endwith %}
 											</tbody>
 										</table>
 									</div>

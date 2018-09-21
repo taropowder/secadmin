@@ -3,6 +3,9 @@ from django.shortcuts import render, HttpResponseRedirect
 from .models import VulRecord
 from django.contrib.auth.decorators import login_required
 from yarl import URL
+from django.contrib.auth.models import User
+from django.db.models import Count, Sum
+
 
 @login_required
 def vul_add(request):
@@ -94,3 +97,12 @@ def my_vul(request):
     context['vuls'] = vuls
     context['score'] = score
     return render(request, 'my_vul.html', context)
+
+
+def ranking(request):
+    context = {}
+    vuls = VulRecord.objects.values("vul_finder__username").annotate(vul_score_sum=Sum("vul_score"),
+                                                                     vul_score_count=Count("vul_score")).filter(
+        vul_review=True).order_by("vul_score_sum")
+    context['vuls'] = vuls
+    return render(request, 'ranking.html', context)
