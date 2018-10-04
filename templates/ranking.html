@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>积分榜</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>RANK</th>
+													<th>HACKER</th>
+													<th>FIND  VULS</th>
+													<th>SCORE</th>
+												</tr>
+											</thead>
+											<tbody>
+                                            {% with 0 as age %}
+                                                {% for vul in vuls %}
+                                                    <tr>
+                                                    <td>  {{ age|add:"1" }} </td>
+                                                    <td> {{ vul.vul_finder__username }}</td>
+                                                    <td> {{ vul.vul_score_count }}</td>
+                                                    <td> {{ vul.vul_score_sum }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% endwith %}
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+
+							</div>
+						</section>
+
+					</article>
+
+{% endblock %}

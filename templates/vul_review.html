@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>{% if 'vul_reviewed' in request.path %}
+							已审核漏洞{% else %}待审核漏洞
+							{% endif %}</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>名称</th>
+													<th>报告人</th>
+												</tr>
+											</thead>
+											<tbody>
+
+                                                {% for vul in vuls %}
+                                                    <tr>
+                                                    <td><a  href="?id={{ vul.id }}">{{ vul }}</a> </td>
+													<td><a href="/vuler?id={{ vul.vul_finder }}" >{{ vul.vul_finder}}</a></td>
+                                                    </tr>
+                                                {% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+
+							</div>
+						</section>
+
+					</article>
+
+{% endblock %}

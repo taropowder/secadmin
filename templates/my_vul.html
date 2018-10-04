@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>总积分：{{ score }}</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>名称</th>
+													<th>是否通过审核</th>
+													<th>积分</th>
+												</tr>
+											</thead>
+											<tbody>
+
+                                                {% for vul in vuls %}
+                                                    <tr>
+                                                    <td><a>{{ vul }}</a> </td>
+                                                    <td> {{ vul.vul_review }}</td>
+													<td>{{ vul.vul_score }} </td>
+                                                    </tr>
+                                                {% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+
+							</div>
+						</section>
+
+					</article>
+
+{% endblock %}

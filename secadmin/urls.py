@@ -14,14 +14,19 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.conf import  settings
-from sec import views
+from django.conf import settings
+from sec import views,vul
 from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.home),
     url(r'^submit/', views.submit),
+    url(r'^vul_review/$', vul.vul_review),
+    url(r'^vul_add/$', vul.vul_add),
+    url(r'^vul_reviewed/', vul.vul_reviewed),
+    url(r'^my_vul/', vul.my_vul),
+    url(r'^ranking/', vul.ranking),
     url(r'^login/', views.user_login),
     url(r'^changeblog/', views.changeblog),
     url(r'^change/(\d+)/', views.change,name='change_id'),

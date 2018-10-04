@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+
+
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>提交漏洞</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<form method="post"  enctype="multipart/form-data">
+
+                                                    <select name="type" id="demo-category" >
+														<option value="">-漏洞类型-</option>
+														<option value="sql">SQL注入</option>
+														<option value="xss">XSS</option>
+														<option value="upload">文件上传</option>
+														<option value="shell">命令执行</option>
+														<option value="ssrf">SSRF</option>
+														<option value="csrf">CSRF</option>
+														<option value="csrf">代码注入</option>
+														<option value="unacc">未授权访问</option>
+													</select>
+												<input type="text" name="url"  value="" placeholder="漏洞url" required/>
+												<input type="text" name="payload"  value="" placeholder="漏洞payload" required/>
+												<input type="text" name="score"  value="" placeholder="自评分数" required/>
+                                                复现过程
+                                                <textarea name="process">
+
+                                                </textarea>
+                                                漏洞证明图片
+                                                <input id="id_headImg" name="image" type="file" /><br/>
+                                                修复意见
+                                                <textarea name="fix">
+
+                                                </textarea>
+
+                                                    {% csrf_token %}
+													<input type="submit" value="提交漏洞" class="special" />
+													<input type="reset" value="重置" /></li
+												</ul>
+									</form>
+								</section>
+
+
+							</div>
+						</section>
+					</article>
+
+{% endblock %}
+{#<form method="post" enctype="multipart/form-data" >#}
+{#        {% csrf_token %}#}
+{#<p><label for="id_username">Username:</label> <input id="id_username" name="username" type="text" value="123" /></p>#}
+{#<ul class="errorlist"></ul>#}
+{#<p><label for="id_headImg">Headimg:</label> <input id="id_headImg" name="headImg" type="file" /></p>#}
+{#<input type="submit" value="ok"/>#}
+{#</form>#}
+{#</body>#}
+{#</html>#}

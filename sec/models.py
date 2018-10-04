@@ -64,17 +64,18 @@ class VulRecord(models.Model):
         ('code', '代码注入'),
         ('unacc', '未授权访问'),
     )
-    vul_finder = models.ForeignKey(User)
+    vul_finder = models.ForeignKey(User, related_name="finder")
     vul_url = models.CharField(max_length=100)
     vul_payload = models.TextField(null=True)
     vul_type = models.CharField(max_length=10, choices=TYPE_CHOICES)
     vul_process = models.TextField()
     vul_score = models.IntegerField()
     vul_review = models.BooleanField(default=False)
-    vul_review_people = models.ForeignKey(User, null=True)
+    vul_review_people = models.ForeignKey(User, null=True, related_name="reviewer")
     vul_time = models.DateTimeField(auto_now_add=True)
     vul_image = models.ImageField(upload_to='vul/%Y/%m', verbose_name="复现图", null=True, blank=True)
     vul_fix = models.TextField(null=True)
+    vul_frist = models.BooleanField(default=False)
 
     def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
-        return self.vul_url + self.vul_type
+        return self.vul_url + "：" + self.get_vul_type_display()
