@@ -16,13 +16,13 @@
 					</section>
 
 				<!-- One -->
-    {% for value in weekblogs %}
+    {% for key,value in week_content.items %}
         <section id="one" class="wrapper style1 special">
 						<div class="inner">
 							<header class="major">
-                                <h2><a href="/blog/{{ value.0 }}/"> 第{{ value.0 }}周博客一览</a></h2>
+                                <h2><a href="/blog/{{ key }}/"> 第{{key}}周博客一览</a></h2>
 								<ul style="list-style-type:none">
-                                    {% for v in value.1 %}
+                                    {% for v in value %}
                                     <li><a href="{{ v.url }}" target="_blank">{{ v.content }}</a></li>
                                     {% endfor %}
 								</ul>
@@ -40,6 +40,47 @@
 					</section>
 
     {% endfor %}
+
+<div style='text-align: center;'>
+	<table>
+	{# 上一页 #}
+	<td>
+	{% if head %}
+		<a href="?page={{pre}}"><span>上一页</span></a>
+	{% else %}
+		<a><p color="red">到头了</p></a>
+	{% endif %}
+    </td>
+
+	{# 打印所有页码 #}
+	{% for page in page_list %}
+		<td>
+		{% if page == page_num %}
+				<a href="?page={{page}}" class="color:red;">
+					<span>
+						{{page}}
+					</span>
+				</a>
+		{% else %}
+				<a href="?page={{page}}">
+					<span>
+						{{page}}
+					</span>
+				</a>
+		{% endif %}
+		</td>
+	{% endfor %}
+	
+	{# 下页 #}
+	<td>
+	{% if rear %}
+		<a href="?page={{nex}}"><span>下一页</span></a>
+	{% else %}
+		<a><p color="red">到尾了</p></a>
+	{% endif %}
+	</td>
+    </table>
+</div>
 
 
                     <!--<div class="chs">Collect from <a href="http://www.cssmoban.com/" >网页模板</a></div>-->

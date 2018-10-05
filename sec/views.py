@@ -10,23 +10,49 @@ import time, datetime
 
 
 # Create your views here.
+EACH_PAGE_NUMBER=5
+EACH_WEEK_SHOW=5
+
 def home(request):
     context = {}
-    weeks = Blog.objects.values('week')
-    weekblogs = {}
+    pipei={}
+    page_list=[]
+    weeks = Blog.objects.values('week').order_by('week')
     if weeks:
-        now = weeks.last()['week']
-        for w in range(1, now + 1):
-            weekblogs[str(w)] = []
-            blog = Blog.objects.filter(week=w)
-            if blog.count() <= 5:
-                m = blog.count()
-            else:
-                m = 5
-            for b in range(0, m):
-                weekblogs[str(w)].append(blog[b])
-    a = sorted(weekblogs.items(), key=lambda d: d[0])
-    context['weekblogs'] = a
+        now = weeks.last()['week']   #bug已修复
+        page_Max=now//EACH_PAGE_NUMBER
+        if(now%EACH_PAGE_NUMBER!=0):
+            page_Max =page_Max+1
+        try:
+            page_num=int(request.GET.get('page','1'))
+        except ValueError:
+            page_num = 1
+        if(page_num>1):
+            head=True
+            pre=page_num-1
+        else:
+            head=False
+            pre=1
+        if(page_num<page_Max):
+            rear=True
+            nex=page_num+1
+        else:
+            rear=False
+            nex=page_Max
+        first = EACH_PAGE_NUMBER*(page_num-1)+1
+        end = first+EACH_PAGE_NUMBER
+        for w in range(first, end):
+            blogs=Blog.objects.filter(week=w)
+            pipei[str(w)]=blogs[:EACH_WEEK_SHOW]#Blog对象列表切片
+        for i in range(1,page_Max+1):
+            page_list.append(i)
+    context["pre"]=pre
+    context["nex"]=nex
+    context["head"]=head
+    context["rear"]=rear
+    context['page_num']= page_num
+    context["week_content"] = pipei 
+    context["page_list"]= page_list 
     return render(request, 'index.html', context)
 
 
