@@ -9,11 +9,13 @@ class Blog(models.Model):
     content = models.TextField(null=False)
     direction = models.CharField(max_length=30)
     url = models.CharField(max_length=100)
-    time = models.CharField(max_length=30)
+    time = models.DateTimeField(auto_now_add=True)
     week = models.IntegerField()
 
     def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
         return self.content
+    class Meta:
+        ordering = ["time"]
 
 
 class CTF_learning(models.Model):
