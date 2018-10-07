@@ -64,6 +64,9 @@ class VulRecord(models.Model):
         ('ssrf', 'SSRF'),
         ('csrf', 'CSRF'),
         ('code', '代码注入'),
+        ('delete', '任意删除'),
+        ('download', '任意下载'),
+        ('logic', '逻辑漏洞'),
         ('unacc', '未授权访问'),
     )
     vul_finder = models.ForeignKey(User, related_name="finder")
