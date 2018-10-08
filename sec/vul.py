@@ -64,6 +64,7 @@ def vul_reviewed(request):
             vul.vul_score = request.POST.get('score')
             if request.POST.get('first'):
                 vul.vul_frist = True
+                vul.vul_score = vul.vul_score + 100
             print(request.POST.get('first'))
             vul.save()
         else:
@@ -74,13 +75,20 @@ def vul_reviewed(request):
             }
             return render(request, 'error.html', context)
     if request.GET.get('id'):
-        vul = VulRecord.objects.get(id=request.GET.get('id'))
-        context['vul'] = vul
-        context['vul'] = vul
-        path = URL(vul.vul_url).path
-        vuls_like = VulRecord.objects.filter(vul_url__contains=path, vul_review=True)
-        context['vuls_like'] = vuls_like
-        return render(request, 'one_vul_reviewed.html', context)
+        if request.user.is_staff:
+            vul = VulRecord.objects.get(id=request.GET.get('id'))
+            context['vul'] = vul
+            path = URL(vul.vul_url).path
+            vuls_like = VulRecord.objects.filter(vul_url__contains=path, vul_review=True)
+            context['vuls_like'] = vuls_like
+            return render(request, 'one_vul_reviewed.html', context)
+        else:
+            context = {
+                'message': "只有管理员才能够访问",
+                'url': "",
+                'code': "history.go(-1);"
+            }
+            return render(request, 'error.html', context)
     vuls = VulRecord.objects.filter(vul_review=True)
     context['vuls'] = vuls
     return render(request, 'vul_review.html', context)
