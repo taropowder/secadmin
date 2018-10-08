@@ -111,6 +111,6 @@ def ranking(request):
     context = {}
     vuls = VulRecord.objects.values("vul_finder__username").annotate(vul_score_sum=Sum("vul_score"),
                                                                      vul_score_count=Count("vul_score")).filter(
-        vul_review=True).order_by("vul_score_sum")
+        vul_review=True).order_by("-vul_score_sum")
     context['vuls'] = vuls
     return render(request, 'ranking.html', context)
