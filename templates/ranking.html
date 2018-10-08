@@ -21,16 +21,14 @@
 												</tr>
 											</thead>
 											<tbody>
-                                            {% with 0 as age %}
                                                 {% for vul in vuls %}
                                                     <tr>
-                                                    <td>  {{ age|add:"1" }} </td>
+                                                    <td>  {{forloop.counter}} </td>
                                                     <td> {{ vul.vul_finder__username }}</td>
                                                     <td> {{ vul.vul_score_count }}</td>
                                                     <td> {{ vul.vul_score_sum }}</td>
                                                     </tr>
                                                 {% endfor %}
-                                            {% endwith %}
 											</tbody>
 										</table>
 									</div>
