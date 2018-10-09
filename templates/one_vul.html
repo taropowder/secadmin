@@ -104,7 +104,7 @@
                                         {% if vuls_like %}
                                             <h2>类似漏洞</h2>
                                         {% for foo in vuls_like %}
-                                            <li><a href="?id={{ vul.id }}">{{ foo }}</a> </li>
+                                            <li><a href="?id={{ foo.id }}">{{ foo }}</a> </li>
                                         {% endfor %}
                                         {% endif %}
 
