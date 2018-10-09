@@ -10,6 +10,16 @@
 							<h2>提交漏洞</h2>
 
 						</header>
+                        <script>
+    function sltCheck(){
+        var slt=document.getElementById("demo-category");
+        if(slt.value===""){
+            alert("请选择一个类型");
+            return false;
+        }
+        return true;
+    }
+</script>
 						<section class="wrapper style5">
 							<div class="inner">
 								<section>
@@ -44,7 +54,7 @@
                                                 </textarea>
 
                                                     {% csrf_token %}
-													<input type="submit" value="提交漏洞" class="special" />
+													<input type="submit" value="提交漏洞" class="special" onclick="return sltCheck()" />
 													<input type="reset" value="重置" /></li
 												</ul>
 									</form>
