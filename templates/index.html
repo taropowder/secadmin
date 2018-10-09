@@ -16,14 +16,18 @@
 					</section>
 
 				<!-- One -->
-    {% for value in weekblogs %}
+    {% for key in week_list %}
         <section id="one" class="wrapper style1 special">
 						<div class="inner">
 							<header class="major">
-                                <h2><a href="/blog/{{ value.0 }}/"> 第{{ value.0 }}周博客一览</a></h2>
+                                <h2><a href="/blog/{{ key }}/"> 第{{ key }}周博客一览</a></h2>
 								<ul style="list-style-type:none">
-                                    {% for v in value.1 %}
-                                    <li><a href="{{ v.url }}" target="_blank">{{ v.content }}</a></li>
+                                    {% for m,k in week_content.items %}
+                                    	{% ifequal key m %}
+                                    		{% for v in k %}
+                                    			<li><a href="{{ v.url }}"style="color:white;" target="_blank">{{ v.content }}</a></li>
+                                    		{% endfor %}
+                                    	{% endifequal %}
                                     {% endfor %}
 								</ul>
 
@@ -40,6 +44,60 @@
 					</section>
 
     {% endfor %}
+
+<div style='text-align: center;'>
+	<style name="page">
+	a,
+	a{
+		color:yellow;
+	}
+	a:hover{
+		color:red;
+	}
+	</style>
+	<table>
+	<td><p><-最新</p></td>
+	<td>
+	{% if rear %}
+		<a href="?page={{nex}}"><span><<</span></a>
+	{% else %}
+		<p><<</p>
+	{% endif %}
+	</td>
+
+	{# 打印所有页码 #}
+	{% for page in page_list %}
+		<td>
+		{% if page == page_num %}
+			<a href="?page={{page}}" style="color:red;">
+				<span>
+					{{page}}
+				</span>
+			</a>
+		{% else %}
+			{% if page == '...' %}
+				<a>{{page}}</a>
+			{% else %}
+				<a href="?page={{page}}">
+				<span>
+					{{page}}
+				</span>
+				</a>
+			{% endif %}
+		{% endif %}
+		</td>
+	{% endfor %}
+	
+	<td>
+	{% if head %}
+		<a href="?page={{pre}}"><span>>></span></a>
+	{% else %}
+		<p>>></p>
+	{% endif %}
+    </td>
+    <td>最早-></td>
+    </table>
+</div>
 
 
                     <!--<div class="chs">Collect from <a href="http://www.cssmoban.com/" >网页模板</a></div>-->
