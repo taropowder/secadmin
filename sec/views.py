@@ -13,20 +13,32 @@ import time, datetime
 EACH_PAGE_NUMBER=5
 EACH_WEEK_SHOW=5
 
+def get_page_list(page_num,page_Max):
+    page_range = list(range(max(page_num-2,1),page_num)) + \
+                list(range(page_num,min(page_num+2,page_Max)+1))
+    if page_range[0] - 1 >= 2:
+        page_range.insert(0,'...')
+    if page_Max - page_range[-1] >= 2:
+        page_range.append('...')
+    if page_range[0] != 1:
+        page_range.insert(0,1)
+    if page_range[-1] != page_Max:
+        page_range.append(page_Max)
+    return page_range
+
 def home(request):
     context = {}
     pipei={}
     page_list=[]
+    week_list=[]
     weeks = Blog.objects.values('week').order_by('week')
     if weeks:
         now = weeks.last()['week']   #bug已修复
         page_Max=now//EACH_PAGE_NUMBER
         if(now%EACH_PAGE_NUMBER!=0):
             page_Max =page_Max+1
-        try:
-            page_num=int(request.GET.get('page','1'))
-        except ValueError:
-            page_num = 1
+            rear_blog_num=now%EACH_PAGE_NUMBER
+        page_num=int(request.GET.get('page',str(page_Max)))
         if(page_num>1):
             head=True
             pre=page_num-1
@@ -40,17 +52,23 @@ def home(request):
             rear=False
             nex=page_Max
         first = EACH_PAGE_NUMBER*(page_num-1)+1
-        end = first+EACH_PAGE_NUMBER
+        if(page_num==page_Max):
+            end = first+rear_blog_num
+        else:
+            end = first+EACH_PAGE_NUMBER
         for w in range(first, end):
             blogs=Blog.objects.filter(week=w)
+            week_list.append(str(w))
             pipei[str(w)]=blogs[:EACH_WEEK_SHOW]#Blog对象列表切片
-        for i in range(1,page_Max+1):
-            page_list.append(i)
+        page_list = get_page_list(page_num,page_Max)
+        page_list.reverse()
     context["pre"]=pre
     context["nex"]=nex
     context["head"]=head
     context["rear"]=rear
-    context['page_num']= page_num
+    context["week_list"]=week_list
+    context["page_num"]= page_num
+    context["page_Max"]=page_Max
     context["week_content"] = pipei 
     context["page_list"]= page_list 
     return render(request, 'index.html', context)
