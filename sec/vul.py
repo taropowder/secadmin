@@ -65,7 +65,6 @@ def vul_reviewed(request):
             if request.POST.get('first'):
                 vul.vul_frist = True
                 vul.vul_score = int(vul.vul_score) * 1.1
-            print(request.POST.get('first'))
             vul.save()
         else:
             context = {
