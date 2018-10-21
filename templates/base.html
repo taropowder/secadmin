@@ -39,15 +39,18 @@
 
                             {% if request.session.username %}
                                 <li><a href="/submit">博客提交</a></li>
+                                <li><a href="/submit_week_learn">基础学习提交</a></li>
+                                <li><a href="/week_list">基础学习提交RANk</a></li>
                                 <li><a href="/myblog/{{ request.session.id }}/">我的提交</a></li>
                                 <li><a href="/changeblog/">修改我的提交</a></li>
                                 <li><a href="/search/">博客搜索</a></li>
                                 <li><a href="/classification/">博客分类</a></li>
                                 <li><a href="/vul_add/">提交漏洞</a></li>
                                 <li><a href="/my_vul/">我提交的漏洞</a></li>
+                                <li><a href="/vul_reviewed/">已审核漏洞</a></li>
                                 {% if request.user.is_staff %}
                                 <li><a href="/vul_review/">待审核漏洞</a></li>
-                                <li><a href="/vul_reviewed/">已审核漏洞</a></li>
+
                                 {% endif %}
 
                             <li><a href="/logout">登出</a></li>

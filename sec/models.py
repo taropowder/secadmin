@@ -14,6 +14,7 @@ class Blog(models.Model):
 
     def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
         return self.content
+
     class Meta:
         ordering = ["time"]
 
@@ -84,3 +85,15 @@ class VulRecord(models.Model):
 
     def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
         return self.vul_url + "：" + self.get_vul_type_display()
+
+
+class WeekLearn(models.Model):
+    learner = models.ForeignKey(User)
+    learn_image = models.ImageField(upload_to='learn/%Y/%m', verbose_name="复现图", null=True, blank=True)
+    learn_time = models.DateTimeField(auto_now_add=True)
+    learn_week = models.IntegerField()
+
+
+class WeekTask(models.Model):
+    task_content = models.TextField()
+    task_week = models.IntegerField()

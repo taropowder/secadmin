@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>第{{ week }}周学习内容提交</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>RANK</th>
+													<th>HACKER</th>
+													<th>TIME</th>
+													<th>IMG</th>
+												</tr>
+											</thead>
+											<tbody>
+                                                {% for weeklearn in weeklearns %}
+                                                    <tr>
+                                                    <td>  {{forloop.counter}} </td>
+                                                    <td> {{ weeklearn.learner }}</td>
+                                                    <td> {{ weeklearn.learn_time|date:"Y年m月d日 H时i分" }}</td>
+                                                    <td> <a href="/static/{{ weeklearn.learn_image }}"><img src="/static/{{ weeklearn.learn_image }}" height="100px" width="200px"/></a></td>
+                                                    </tr>
+                                                {% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+
+							</div>
+						</section>
+
+					</article>
+
+{% endblock %}
