@@ -36,7 +36,7 @@ def submit_week_learn(request):
             submit = True
             break
         i = i + 1
-    if i <= 10:
+    if i <= 10 and submit:
         task = WeekTask.objects.get(task_week=now_week+1)
     elif not submit:
         task = WeekTask.objects.get(task_week=now_week)
