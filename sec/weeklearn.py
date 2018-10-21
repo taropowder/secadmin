@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, HttpResponseRedirect
-from .models import  WeekLearn, WeekTask
+from django.contrib.auth.decorators import login_required
+from .models import WeekLearn, WeekTask
 from datetime import date
 from math import ceil
 
 
+@login_required
 def week_list(request):
     context = {}
     week = request.GET.get('id')
@@ -17,6 +19,7 @@ def week_list(request):
     return render(request, 'week_list.html', context)
 
 
+@login_required
 def submit_week_learn(request):
     context = {}
     delta = date.today() - date(2018, 10, 22)
@@ -37,7 +40,7 @@ def submit_week_learn(request):
             break
         i = i + 1
     if i <= 10 and submit:
-        task = WeekTask.objects.get(task_week=now_week+1)
+        task = WeekTask.objects.get(task_week=now_week + 1)
     elif not submit:
         task = WeekTask.objects.get(task_week=now_week)
     context['task'] = task
