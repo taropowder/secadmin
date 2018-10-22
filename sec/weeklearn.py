@@ -25,12 +25,16 @@ def submit_week_learn(request):
     delta = date.today() - date(2018, 10, 22)
     now_week = ceil(delta.days / 7)
     if request.method == 'POST':
-        weeklearn = WeekLearn()
-        weeklearn.learner = request.user
-        weeklearn.learn_image = request.FILES['image']
-        weeklearn.learn_week = now_week
-        weeklearn.save()
-        return HttpResponseRedirect("/week_list")
+        try:
+
+            weeklearn = WeekLearn()
+            weeklearn.learner = request.user
+            weeklearn.learn_image = request.FILES['image']
+            weeklearn.learn_week = now_week
+            weeklearn.save()
+            return HttpResponseRedirect("/week_list")
+        except Exception:
+            context['error'] = "alert('未选择图片');"
     weeklearns = WeekLearn.objects.filter(learn_week=now_week).order_by("learn_time")
     i = 0
     submit = False

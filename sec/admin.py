@@ -6,7 +6,6 @@ admin.site.register(Blog)
 admin.site.register(CTF_learning)
 admin.site.register(ON_DUTY)
 admin.site.register(Book)
-admin.site.register(WeekLearn)
 admin.site.register(WeekTask)
 
 
@@ -18,3 +17,10 @@ class VulRecordAdmin(admin.ModelAdmin):
 
     def title(self, obj):
         return obj.vul_url + "：" + obj.get_vul_type_display()
+
+
+@admin.register(WeekLearn)
+class WeekLearnAdmin(admin.ModelAdmin):
+    list_display = ('id', 'learner', 'learn_time', 'learn_week')
+    list_display_links = ('id', 'learner')
+    list_filter = ('learner', 'learn_week')

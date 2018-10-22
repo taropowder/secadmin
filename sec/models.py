@@ -97,3 +97,6 @@ class WeekLearn(models.Model):
 class WeekTask(models.Model):
     task_content = models.TextField()
     task_week = models.IntegerField()
+
+    def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
+        return str(self.task_week)
