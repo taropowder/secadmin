@@ -25,9 +25,12 @@ class VulRecordAdmin(admin.ModelAdmin):
 
 @admin.register(WeekLearn)
 class WeekLearnAdmin(admin.ModelAdmin):
-    list_display = ('id', 'learner', 'learn_time', 'learn_week')
-    list_display_links = ('id', 'learner')
-    list_filter = ('learner', 'learn_week')
+    list_display = ('id', 'name', 'learn_time', 'learn_week')
+    list_display_links = ('id', 'name')
+    list_filter = ('learn_week', 'learn_time')
+
+    def name(self, obj):
+        return str(obj.learner) + "：" + str(obj.learner.first_name)
 
 
 @admin.register(UserProfile)
