@@ -8,8 +8,8 @@
 					<article id="main">
 						<header>
 							<h2>博客搜索</h2>
-                            <form action="/search/" method="post">
-                                <input type="text" name="name"><br/>
+                            <form action="/search/" method="get">
+                                <input type="text" name="name" value="{{ name }}"><br/>
                                 <input type="submit" value="搜索">
                                 {% csrf_token %}
                             </form>

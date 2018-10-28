@@ -207,10 +207,11 @@ def change(request, change_id):
 
 def search(request):
     context = {}
-    if request.method == 'POST':
-        name = request.POST.get('name')
+    if request.GET.get('name'):
+        name = request.GET.get('name')
         blogs = Blog.objects.filter(content__contains=name)
         context['blogs'] = blogs
+        context['name'] = name
     return render(request, 'search.html', context)
 
 
