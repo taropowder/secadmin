@@ -39,6 +39,7 @@
 
                             {% if request.session.username %}
                                 <li><a href="/submit">博客提交</a></li>
+                                <li><a href="/changepersion">个人信息修改</a></li>
                                 <li><a href="/submit_week_learn">基础学习提交</a></li>
                                 <li><a href="/week_list">基础学习提交RANk</a></li>
                                 <li><a href="/myblog/{{ request.session.id }}/">我的提交</a></li>
@@ -57,7 +58,7 @@
                                 {% else %}
 
                                 <li><a href="/login">登录</a></li>
-{#                            <li><a href="/register">注册</a></li>#}
+                            <li><a href="/register">注册</a></li>
                             {% endif %}
 
                         </ul>

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+
+
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>个人信息修改</h2>
+
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<form method="post" action="">
+                                        <table>
+                                            <tr>
+                                                <td>昵称</td>
+                                                <td>{{ user }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>姓名</td>
+                                                <td><input type="text" name="firstname"   value="{{ user.first_name }}" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>学号</td>
+                                                <td><input type="text" name="student_id"  value="{{ user.userprofile.student_id }}" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>入学年份</td>
+                                                <td>{{ user.userprofile.grade }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>QQ号</td>
+                                                <td><input type="text" name="qq"   value="{{ user.userprofile.qq }}" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>手机号</td>
+                                                <td><input type="text" name="phone"   value="{{ user.userprofile.phone }}" /></td>
+                                            </tr>
+                                        </table>
+											<div class="12u$" align="center">
+												<ul class="actions">
+													       {% csrf_token %}
+													<li><input type="submit" value="修改" class="special" /></li>
+												</ul>
+											</div>
+										</div>
+									</form>
+								</section>
+
+
+
+							</div>
+						</section>
+					</article>
+    <script>
+        a={{ statu }};
+        if (a==1){
+            alert('{{ error }}');
+        }
+        </script>
+
+{% endblock %}

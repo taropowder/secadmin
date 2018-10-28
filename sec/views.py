@@ -5,7 +5,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Blog, CTF_learning, ON_DUTY, Book
-from .models import BlogDirection
+from .models import BlogDirection, UserProfile
 import time, datetime
 import random
 from datetime import date
@@ -143,6 +143,14 @@ def register(request):
         user = User.objects.create_user(name, email, password)
         user.first_name = request.POST.get('firstname')
         user.save()
+        profile = UserProfile()
+        profile.user = user
+        profile.direction = request.POST.get('direction')
+        profile.phone = request.POST.get('phone')
+        profile.student_id = request.POST.get('student_id')
+        profile.qq = request.POST.get('qq')
+        profile.grade = profile.student_id[0:2]
+        profile.save()
         context['name'] = name
         return render(request, 'login.html', context)
     return render(request, 'register.html', context)
@@ -288,3 +296,32 @@ def random_week(request):
         url = blog.url
 
     return HttpResponseRedirect(url)
+
+
+def change_persion(request):
+    context = {}
+    user = request.user
+    context['user'] = user
+    # profile = user.userprofile
+    # context['profile'] =
+    if request.method == "POST":
+        qq = request.POST.get('qq', '')
+        phone = request.POST.get('phone', '')
+        student_id = request.POST.get('student_id', '')
+        name = request.POST.get("firstname", "")
+        defaults = {
+            "qq": qq,
+            "phone": phone,
+            "student_id": student_id,
+            "grade": student_id[0:2]
+        }
+        user.first_name = name
+        user.save()
+        person, created = UserProfile.objects.update_or_create(
+            user=user, defaults=defaults
+        )
+        if created:
+            print("新建成功")
+        else:
+            print("更新成功")
+    return render(request, 'changepersion.html', context)

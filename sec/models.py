@@ -144,13 +144,15 @@ class UserProfile(models.Model):
         ('sec', '网络安全'),
         ('dat', '大数据'),
     )
-    user = models.ForeignKey(User)  # 关联自带的User结构
+    user = models.OneToOneField(User)  # 关联自带的User结构
     student_id = models.CharField("学号", max_length=10)
-    direction = models.CharField("方向", max_length=10, choices=DIRECTION_CHOICES)
+    direction = models.CharField("方向", max_length=10, choices=DIRECTION_CHOICES, default='sec')
+    qq = models.CharField("QQ", max_length=14, null=True)
+    phone = models.CharField("联系电话", max_length=12, null=True)
     grade = models.IntegerField("入学年份")
 
     def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
-        return self.user
+        return str(self.user)
 
     class Meta:
         verbose_name_plural = '个人信息'
