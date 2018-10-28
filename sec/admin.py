@@ -1,12 +1,17 @@
 from django.contrib import admin
 from .models import Blog, CTF_learning, ON_DUTY, Book, VulRecord, WeekLearn, WeekTask
-
+from .models import BlogDirection, UserProfile
 # Register your models here.
 admin.site.register(Blog)
 admin.site.register(CTF_learning)
 admin.site.register(ON_DUTY)
 admin.site.register(Book)
 admin.site.register(WeekTask)
+admin.site.register(BlogDirection)
+admin.site.register(UserProfile)
+admin.site.site_title = "711综合管理系统"
+admin.site.site_header = "711综合管理系统"
+admin.site.index_title = "711综合管理系统"
 
 
 @admin.register(VulRecord)

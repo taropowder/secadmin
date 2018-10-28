@@ -5,7 +5,10 @@
 					<article id="main">
 						<header>
 							<h2>第{{ week }}周博客</h2>
-
+                            <div align="center">
+                                 <a href="?direction=sec" class="button special" >网安</a>
+                                 <a href="?direction=dat" class="button special" >大数据</a>
+                            </div>
 						</header>
 						<section class="wrapper style5">
 							<div class="inner">
@@ -25,7 +28,7 @@
                                             <tr>
 													<td><a href="/myblog/{{ blog.blog_user.id }}/">{{ blog.blog_user }}</a> </td>
 													<td><a href="{{ blog.url }}" target="_blank"> {{  blog.content}}</a></td>
-                                                    <td>{{ blog.direction }}</td>
+                                                    <td>{{ blog.new_direction }}</td>
 													<td>{{ blog.time }}</td>
 												</tr>
                                             {% endfor %}
@@ -35,7 +38,7 @@
 								</section>
 
                             <div align="center">
-                                 <a href="/random_week/?random={{ week }}" class="button special" >Random Show</a>
+                                 <a href="/random_week/?random={{ week }}&direction={{ direction }}" class="button special" >Random Show</a>
                             </div>
 
 							</div>

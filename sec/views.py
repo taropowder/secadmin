@@ -5,7 +5,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Blog, CTF_learning, ON_DUTY, Book
-from random import choice
+from .models import BlogDirection
 import time, datetime
 import random
 from datetime import date
@@ -82,17 +82,20 @@ def home(request):
 def submit(request):
     context = {}
     context['statu'] = '0'
+    directions = BlogDirection.objects.all()
+    context['directions'] = directions
     if request.method == 'POST':
         content = request.POST.get('content')
         url = request.POST.get('url')
         direction = request.POST.get('direction')
+        blog_direction = BlogDirection.objects.get(id=direction)
         delta = date.today() - date(2018, 3, 21)
         week = ceil(delta.days / 7)
         blog = Blog()
         blog.blog_user = User.objects.get(username=request.session['username'])
         blog.content = content
         blog.url = url
-        blog.direction = direction
+        blog.new_direction = blog_direction
         blog.time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         blog.week = week
         blog.save()
@@ -148,11 +151,12 @@ def register(request):
 def weekblog(request, week):
     context = {}
     blogs = Blog.objects.filter(week=week)
+    if request.GET.get('direction'):
+        direction = request.GET.get('direction')
+        blogs = blogs.filter(new_direction__direction=direction)
+        context['direction'] = direction
     context['blogs'] = blogs
     context['week'] = week
-    u = User.objects.values('id')
-    man = choice(u)
-    context['man'] = man['id']
     return render(request, 'weekblog.html', context)
 
 
@@ -204,9 +208,11 @@ def search(request):
 
 def classification(request):
     context = {}
+    directions = BlogDirection.objects.all()
+    context['directions'] = directions
     if request.method == 'POST':
         direction = request.POST.get('direction')
-        blogs = Blog.objects.filter(direction=direction)
+        blogs = Blog.objects.filter(new_direction=direction)
         context['blogs'] = blogs
     return render(request, 'classification.html', context)
 
@@ -246,7 +252,6 @@ def onduty(request):
     duty['Mon'] = dutys['Mon']
     context['duty'] = dutys
     context['conut'] = WEEK
-    # print request.POST.get('Mon1')
     return render(request, 'onduty.html', context)
 
 
@@ -276,6 +281,10 @@ def back(request):
 def random_week(request):
     if request.GET.get('random'):
         blogs = Blog.objects.filter(week=request.GET.get('random'))
+        if request.GET.get('direction'):
+            direction = request.GET.get('direction')
+            blogs = blogs.filter(new_direction__direction=direction)
         blog = random.choice(blogs)
         url = blog.url
+
     return HttpResponseRedirect(url)

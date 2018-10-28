@@ -31,7 +31,7 @@
                                                 <form method="post" action="/change/{{ blog.id }}/">
                                                     <td><input  type="text"  name='content' value="{{  blog.content}}"></td>
 													<td><input  type="text"  name='url' value="{{  blog.url}}"></td>
-                                                    <td>{{  blog.direction}}</td>
+                                                    <td>{{  blog.new_direction}}</td>
 													<td>{{ blog.time }}</td>
                                                     {% csrf_token %}
                                                     <td><input type="submit" class="button special" value="修改"></td>

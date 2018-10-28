@@ -25,10 +25,9 @@
 												<div class="select-wrapper">
 													<select name="direction" id="demo-category">
 														<option value="">- 学习内容方向 -</option>
-														<option value="web">web</option>
-														<option value="二进制">二进制</option>
-														<option value="开发">开发</option>
-														<option value="其他">其他</option>
+                                                        {% for direction in directions %}
+                                                        <option value="{{ direction.id }}">{{ direction }}</option>
+                                                        {% endfor %}
 													</select>
 												</div>
 											<div class="12u$">
