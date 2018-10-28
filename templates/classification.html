@@ -11,10 +11,9 @@
                             <form action="/classification/" method="post">
                                 <select name="direction" id="demo-category">
 														<option value="">- 学习内容方向 -</option>
-														<option value="web">web</option>
-														<option value="二进制">二进制</option>
-														<option value="开发">开发</option>
-														<option value="其他">其他</option>
+														{% for direction in directions %}
+                                                        <option value="{{ direction.id }}">{{ direction }}</option>
+                                                        {% endfor %}
 													</select>
                                 <input type="submit" value="确定">
                                 {% csrf_token %}
@@ -40,8 +39,7 @@
                                             <tr>
 {#													<td>{{ blog.blog_user }}</td>#}
 													<td><a href="{{  blog.url}}" target="_blank">{{  blog.content}}</a></td>
-													<!--<td>{{  blog.url}}</td>-->
-                                                    <td>{{ blog.direction }}</td>
+                                                    <td>{{ blog.new_direction }}</td>
 													<td>{{ blog.time }}</td>
 												</tr>
                                             {% endfor %}

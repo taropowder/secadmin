@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.home),
     url(r'^submit_week_learn/', weeklearn.submit_week_learn),
+    url(r'^changepersion/', views.change_persion),
     url(r'^week_list/', weeklearn.week_list),
     url(r'^submit/', views.submit),
     url(r'^vul_review/$', vul.vul_review),
