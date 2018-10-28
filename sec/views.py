@@ -139,7 +139,7 @@ def register(request):
             context['error'] = '该名字已被使用'
             return render(request, 'register.html', context)
         password = request.POST.get('password')
-        email = request.POST.get('eamil')
+        email = request.POST.get('email')
         user = User.objects.create_user(name, email, password)
         user.first_name = request.POST.get('firstname')
         user.save()
