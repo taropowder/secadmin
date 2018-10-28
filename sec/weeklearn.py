@@ -35,17 +35,12 @@ def submit_week_learn(request):
             return HttpResponseRedirect("/week_list")
         except Exception:
             context['error'] = "alert('未选择图片');"
-    weeklearns = WeekLearn.objects.filter(learn_week=now_week).order_by("learn_time")
-    i = 0
-    submit = False
-    for weeklearn in weeklearns:
-        if weeklearn.learner == request.user:
-            submit = True
-            break
-        i = i + 1
-    if i <= 10 and submit:
+
+    weeklearns = WeekLearn.objects.filter(learn_week=now_week, learner=request.user)
+    if weeklearns:
         task = WeekTask.objects.get(task_week=now_week + 1)
-    elif not submit:
+    else:
         task = WeekTask.objects.get(task_week=now_week)
+
     context['task'] = task
     return render(request, 'submit_week_learn.html', context)

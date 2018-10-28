@@ -22,12 +22,12 @@ class BlogDirection(models.Model):
 
 class Blog(models.Model):
     blog_user = models.ForeignKey(User)
-    content = models.TextField(null=False)
-    direction = models.CharField(max_length=30)
+    content = models.TextField("博客标题",null=False)
+    direction = models.CharField("方向（已弃用，移植到新的博客方向）", max_length=30,null=True )
     new_direction = models.ForeignKey(BlogDirection, null=True)
-    url = models.CharField(max_length=100)
+    url = models.CharField(max_length=300)
     time = models.DateTimeField(auto_now_add=True)
-    week = models.IntegerField()
+    week = models.IntegerField("周数")
 
     def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
         return self.content
