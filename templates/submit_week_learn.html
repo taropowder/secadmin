@@ -39,7 +39,7 @@
                             <p>
                             {% if task %}
                                 <h4>第{{ task.task_week }}周任务是</h4>
-                             {{ task.task_content }}
+                             {{ task.task_content | safe }}
                                 {% else %}
                                 提交成功，请等待下周任务
                             {% endif %}

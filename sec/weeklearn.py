@@ -11,7 +11,7 @@ def week_list(request):
     context = {}
     week = request.GET.get('id')
     if not week:
-        delta = date.today() - date(2018, 10, 22)
+        delta = date.today() - date(2018, 10, 21)
         week = ceil(delta.days / 7)
     weeklearns = WeekLearn.objects.filter(learn_week=week).order_by("learn_time")
     context['weeklearns'] = weeklearns
@@ -22,7 +22,7 @@ def week_list(request):
 @login_required
 def submit_week_learn(request):
     context = {}
-    delta = date.today() - date(2018, 10, 22)
+    delta = date.today() - date(2018, 10, 21)
     now_week = ceil(delta.days / 7)
     if request.method == 'POST':
         try:

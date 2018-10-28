@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^ranking/', vul.ranking),
     url(r'^login/', views.user_login),
     url(r'^changeblog/', views.changeblog),
+    url(r'^random_week/', views.random_week),
     url(r'^change/(\d+)/', views.change, name='change_id'),
     url(r'^register/', views.register),
     url(r'^blog/(\d+)/$', views.weekblog, name='week'),

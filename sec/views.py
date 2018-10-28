@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from .models import Blog, CTF_learning, ON_DUTY, Book
 from random import choice
 import time, datetime
-
+import random
 
 # Create your views here.
 EACH_PAGE_NUMBER=5
@@ -267,3 +267,11 @@ def back(request):
     if request.session['id'] == book.lend_people_id:
         Book.objects.filter(id=request.GET.get('id')).update(lend_people_id=None, lend_time=None, is_lend=False)
     return HttpResponseRedirect('/book/')
+
+
+def random_week(request):
+    if request.GET.get('random'):
+        blogs = Blog.objects.filter(week=request.GET.get('random'))
+        blog = random.choice(blogs)
+        url = blog.url
+    return HttpResponseRedirect(url)
