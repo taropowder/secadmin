@@ -8,7 +8,6 @@ admin.site.register(ON_DUTY)
 admin.site.register(Book)
 admin.site.register(WeekTask)
 admin.site.register(BlogDirection)
-admin.site.register(UserProfile)
 admin.site.site_title = "711综合管理系统"
 admin.site.site_header = "711综合管理系统"
 admin.site.index_title = "711综合管理系统"
@@ -29,3 +28,13 @@ class WeekLearnAdmin(admin.ModelAdmin):
     list_display = ('id', 'learner', 'learn_time', 'learn_week')
     list_display_links = ('id', 'learner')
     list_filter = ('learner', 'learn_week')
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'grade', 'phone', 'direction')
+    list_display_links = ('id', 'name')
+    list_filter = ('direction', 'grade')
+
+    def name(self, obj):
+        return str(obj.user) + "：" + str(obj.user.first_name)
