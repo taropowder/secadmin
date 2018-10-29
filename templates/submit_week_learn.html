@@ -36,6 +36,7 @@
 					<article id="main">
 						<header>
 							<h2>你好{{ request.session.username }}请在这里提交本周学习内容</h2>
+                            <h3>PS:看到了下周任务提交上去也是本周任务，如当前周有多个照片需要提交，请继续提交</h3>
                             <p>
                             {% if task %}
                                 <h4>第{{ task.task_week }}周任务是</h4>

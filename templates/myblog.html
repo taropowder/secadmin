@@ -27,7 +27,7 @@
                                             {% for blog in blogs %}
                                             <tr>
 													<td><a href="{{  blog.url}}" target="_blank">{{  blog.content}}</a></td>
-                                                    <td>{{ blog.direction }}</td>
+                                                    <td>{{ blog.new_direction }}</td>
 													<td>{{ blog.time | date:'Y-n-d H:i'}}</td>
 												</tr>
                                             {% endfor %}
