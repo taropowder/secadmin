@@ -24,11 +24,11 @@ class TaskListFilter(admin.SimpleListFilter):
 
 
 # Register your models here.
+
 admin.site.register(Blog)
 admin.site.register(CTF_learning)
 admin.site.register(ON_DUTY)
 admin.site.register(Book)
-admin.site.register(WeekTask)
 admin.site.register(BlogDirection)
 admin.site.site_title = "711综合管理系统"
 admin.site.site_header = "711综合管理系统"
@@ -55,8 +55,7 @@ class WeekLearnAdmin(admin.ModelAdmin):
         return str(obj.learner) + "：" + str(obj.learner.first_name)
 
     def direction_task(self, obj):
-        # return str(obj.learn_task.get_task_direction_display())
-        return str(obj.learn_task)
+        return str(obj.learn_task.get_task_direction_display())
 
 
 @admin.register(UserProfile)
@@ -67,3 +66,10 @@ class UserProfileAdmin(admin.ModelAdmin):
 
     def name(self, obj):
         return str(obj.user) + "：" + str(obj.user.first_name)
+
+
+@admin.register(WeekTask)
+class WeekTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'task_week', 'task_direction')
+    list_display_links = ('id', 'task_week')
+    list_filter = ('task_direction', )

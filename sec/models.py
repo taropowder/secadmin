@@ -34,7 +34,7 @@ class Blog(models.Model):
 
     class Meta:
         verbose_name_plural = '博客'
-        ordering = ["time"]
+        ordering = ["-time"]
 
 
 class CTF_learning(models.Model):
