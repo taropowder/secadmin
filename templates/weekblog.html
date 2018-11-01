@@ -29,7 +29,7 @@
 													<td><a href="/myblog/{{ blog.blog_user.id }}/">{{ blog.blog_user }}</a> </td>
 													<td><a href="{{ blog.url }}" target="_blank"> {{  blog.content}}</a></td>
                                                     <td>{{ blog.new_direction }}</td>
-													<td>{{ blog.time }}</td>
+													<td>{{ blog.time | date:'Y-n-d H:i'}}</td>
 												</tr>
                                             {% endfor %}
 											</tbody>

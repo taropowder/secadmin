@@ -23,7 +23,7 @@ class BlogDirection(models.Model):
 class Blog(models.Model):
     blog_user = models.ForeignKey(User)
     content = models.TextField("博客标题",null=False)
-    direction = models.CharField("方向（已弃用，移植到新的博客方向）", max_length=30,null=True )
+    direction = models.CharField("方向（已弃用，移植到新的博客方向）", max_length=30, null=True)
     new_direction = models.ForeignKey(BlogDirection, null=True)
     url = models.CharField(max_length=300)
     time = models.DateTimeField(auto_now_add=True)
@@ -34,7 +34,7 @@ class Blog(models.Model):
 
     class Meta:
         verbose_name_plural = '博客'
-        ordering = ["time"]
+        ordering = ["-time"]
 
 
 class CTF_learning(models.Model):
@@ -118,25 +118,30 @@ class VulRecord(models.Model):
         verbose_name_plural = '漏洞记录管理'
 
 
-class WeekLearn(models.Model):
-    learner = models.ForeignKey(User)
-    learn_image = models.ImageField(upload_to='learn/%Y/%m', verbose_name="复现图", null=True, blank=True)
-    learn_time = models.DateTimeField(auto_now_add=True)
-    learn_week = models.IntegerField()
-
-    class Meta:
-        verbose_name_plural = '每周基础学习管理'
-
-
 class WeekTask(models.Model):
+    DIRECTION_CHOICES = (
+        ('sec', '网络安全'),
+        ('dat', '大数据'),
+    )
     task_content = models.TextField()
     task_week = models.IntegerField()
+    task_direction = models.CharField("方向", max_length=10, choices=DIRECTION_CHOICES, default='sec')
 
     def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
         return str(self.task_week)
 
     class Meta:
         verbose_name_plural = '每周任务'
+
+
+class WeekLearn(models.Model):
+    learner = models.ForeignKey(User)
+    learn_image = models.ImageField(upload_to='learn/%Y/%m', verbose_name="复现图", null=True, blank=True)
+    learn_time = models.DateTimeField(auto_now_add=True)
+    learn_task = models.ForeignKey(WeekTask, null=True)
+
+    class Meta:
+        verbose_name_plural = '每周基础学习管理'
 
 
 class UserProfile(models.Model):

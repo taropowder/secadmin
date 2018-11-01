@@ -97,7 +97,7 @@ def submit(request):
         url = request.POST.get('url')
         direction = request.POST.get('direction')
         blog_direction = BlogDirection.objects.get(id=direction)
-        delta = date.today() - date(2018, 3, 21)
+        delta = date.today() - date(2018, 3, 18)
         week = ceil(delta.days / 7)
         blog = Blog()
         blog.blog_user = User.objects.get(username=request.session['username'])
@@ -166,7 +166,7 @@ def register(request):
 
 def weekblog(request, week):
     context = {}
-    blogs = Blog.objects.filter(week=week)
+    blogs = Blog.objects.filter(week=week).order_by('time')
     if request.GET.get('direction'):
         direction = request.GET.get('direction')
         blogs = blogs.filter(new_direction__direction=direction)
