@@ -22,7 +22,7 @@ class BlogDirection(models.Model):
 
 class Blog(models.Model):
     blog_user = models.ForeignKey(User)
-    content = models.TextField("博客标题",null=False)
+    content = models.TextField("博客标题", null=False)
     direction = models.CharField("方向（已弃用，移植到新的博客方向）", max_length=30, null=True)
     new_direction = models.ForeignKey(BlogDirection, null=True)
     url = models.CharField(max_length=300)
@@ -163,3 +163,20 @@ class UserProfile(models.Model):
         verbose_name_plural = '个人信息'
 
 
+class DoorCard(models.Model):
+    STATUS_CHOICES = (
+        ('in', '正在实验室并且已开门'),
+        ('out', '离开实验室并已关门'),
+        ('unknow', '离开实验室走时未关门')
+    )
+
+    owner = models.OneToOneField(User)
+    number = models.CharField('编号', max_length=10)
+    get_time =models.DateTimeField(auto_now=True)
+    status = models.CharField("门卡状态", max_length=10, choices=STATUS_CHOICES, default='unknow')
+
+    def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
+        return str(self.number)
+
+    class Meta:
+        verbose_name_plural = '门卡管理'

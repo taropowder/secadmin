@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block root %}
+	<div id="page-wrapper">
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>门卡管理</h2>
+                            <div align="center">
+                                {% if user_card %}
+                                    <h3>您的门卡编号是{{ user_card }}</h3>
+                                <a href="?status=in" style="background-color:#27d318" class="button special" >开门</a>
+                                 <a href="?status=out" style="background-color:#d3100d" class="button special" >卡离关门</a>
+                                 <a href="?status=unknow" style="background-color:#d3c912" class="button special" >卡离未关门</a>
+                                    {% else %}
+                                        <form method="post">
+                                            <select name="card" id="demo-category">
+                                                <option value="">- 选择获得的门卡编号 -</option>
+                                                {% for card in cards %}
+                                                <option value="{{ card.id }}">{{ card.number }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        {% csrf_token %}
+                                        <input type="submit" style="background-color:#27d318" class="button special" value="GET门卡">
+                                        </form>
+                                {% endif %}
+
+                            </div>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<section>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>门卡编号</th>
+													<th>持卡人</th>
+                                                    <th>状态最后变更时间</th>
+                                                    <th>门卡状态</th>
+												</tr>
+											</thead>
+											<tbody>
+                                            {% for card in cards %}
+                                            <tr>
+													<td>{{ card.number }} </td>
+													<td>{{  card.owner }}</td>
+                                                    <td>{{ card.get_time | date:'Y-n-d H:i' }}</td>
+													<td  {% if card.status == 'in' %}
+                                                        style="background-color:#27d318"
+                                                        {% elif card.status == 'out' %}
+                                                        style="background-color:#d3100d"
+                                                        {% elif card.status == 'unknow' %}
+                                                        style="background-color:#d3c912"
+                                                    {% endif %} >{{ card.get_status_display }}</td>
+												</tr>
+                                            {% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+							</div>
+						</section>
+
+					</article>
+
+{% endblock %}

@@ -15,13 +15,15 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
-from sec import views, vul, weeklearn
+from sec import views, vul, weeklearn, doorcard
 from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.home),
     url(r'^submit_week_learn/', weeklearn.submit_week_learn),
+    url(r'^doorcard/', doorcard.door),
+    url(r'^doorclose/', doorcard.close),
     url(r'^changepersion/', views.change_persion),
     url(r'^week_list/', weeklearn.week_list),
     url(r'^submit/', views.submit),

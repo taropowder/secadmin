@@ -4,7 +4,14 @@
 				<!-- Banner -->
 					<section id="banner">
 						<div class="inner">
-							<h2>711实验室博客提交平台</h2>
+							<h2>711实验室综合管理平台</h2>
+                            <h3>实验室是否开门 {% if door %}
+                                ✅
+                                {% else %}
+                                ❌
+                            {% endif %}</h3>
+                 <a href="doorclose/" style="background-color:#d3100d" class="button special" >关门</a>
+
 							<p>请提交本周博客<br />
 							<!--site template freebie<br />-->
 {#							crafted by <a href="http://123.206.74.236">taropowder</a>.</p>#}

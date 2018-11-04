@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.conf import settings
 from .models import Blog, CTF_learning, ON_DUTY, Book
 from .models import BlogDirection, UserProfile
 import time, datetime
@@ -12,77 +13,80 @@ from datetime import date
 from math import ceil
 
 # Create your views here.
-EACH_PAGE_NUMBER=5
-EACH_WEEK_SHOW=5
+EACH_PAGE_NUMBER = 5
+EACH_WEEK_SHOW = 5
 
-def get_page_list(page_num,page_Max):
-    page_range = list(range(max(page_num-2,1),page_num)) + \
-                list(range(page_num,min(page_num+2,page_Max)+1))
+
+def get_page_list(page_num, page_Max):
+    page_range = list(range(max(page_num - 2, 1), page_num)) + \
+                 list(range(page_num, min(page_num + 2, page_Max) + 1))
     if page_range[0] - 1 >= 2:
-        page_range.insert(0,'...')
+        page_range.insert(0, '...')
     if page_Max - page_range[-1] >= 2:
         page_range.append('...')
     if page_range[0] != 1:
-        page_range.insert(0,1)
+        page_range.insert(0, 1)
     if page_range[-1] != page_Max:
         page_range.append(page_Max)
     return page_range
 
+
 def home(request):
     context = {}
-    pipei={}
-    page_list=[]
-    week_list=[]
-    all_week_set=set()
-    all_week_list=[]
+    pipei = {}
+    page_list = []
+    week_list = []
+    all_week_set = set()
+    all_week_list = []
     weeks = Blog.objects.values('week').order_by('week')
     if weeks:
         week_count = 0
         for wk in weeks:
             all_week_set.add(wk["week"])
-        all_week_list=list(all_week_set)
+        all_week_list = list(all_week_set)
         all_week_list.sort()
         for wk in all_week_list:
             week_count = week_count + 1
-        page_Max=week_count//EACH_PAGE_NUMBER
-        if(week_count%EACH_PAGE_NUMBER!=0):
-            page_Max =page_Max+1
-            rear_blog_num=week_count%EACH_PAGE_NUMBER
+        page_Max = week_count // EACH_PAGE_NUMBER
+        if (week_count % EACH_PAGE_NUMBER != 0):
+            page_Max = page_Max + 1
+            rear_blog_num = week_count % EACH_PAGE_NUMBER
         else:
-            rear_blog_num=EACH_PAGE_NUMBER
-        page_num=int(request.GET.get('page',str(page_Max)))
-        if(page_num>1):
-            head=True
-            pre=page_num-1
+            rear_blog_num = EACH_PAGE_NUMBER
+        page_num = int(request.GET.get('page', str(page_Max)))
+        if (page_num > 1):
+            head = True
+            pre = page_num - 1
         else:
-            head=False
-            pre=1
-        if(page_num<page_Max):
-            rear=True
-            nex=page_num+1
+            head = False
+            pre = 1
+        if (page_num < page_Max):
+            rear = True
+            nex = page_num + 1
         else:
-            rear=False
-            nex=page_Max
-        first = EACH_PAGE_NUMBER*(page_num-1)+1
-        if(page_num==page_Max):
-            end = first+rear_blog_num
+            rear = False
+            nex = page_Max
+        first = EACH_PAGE_NUMBER * (page_num - 1) + 1
+        if (page_num == page_Max):
+            end = first + rear_blog_num
         else:
-            end = first+EACH_PAGE_NUMBER
+            end = first + EACH_PAGE_NUMBER
         for w in range(first, end):
-            blogs=Blog.objects.filter(week=(all_week_list[w-1]))
-            week_list.append(str(all_week_list[w-1]))
-            pipei[str(all_week_list[w-1])]=blogs[:EACH_WEEK_SHOW]#Blog对象列表切片
-        page_list = get_page_list(page_num,page_Max)
+            blogs = Blog.objects.filter(week=(all_week_list[w - 1]))
+            week_list.append(str(all_week_list[w - 1]))
+            pipei[str(all_week_list[w - 1])] = blogs[:EACH_WEEK_SHOW]  # Blog对象列表切片
+        page_list = get_page_list(page_num, page_Max)
         page_list.reverse()
-    context["pre"]=pre
-    context["nex"]=nex
-    context["head"]=head
-    context["rear"]=rear
-    context["week_list"]=week_list
-    context["page_num"]= page_num
-    context["page_Max"]=page_Max
-    context["week_content"] = pipei 
-    context["page_list"]= page_list 
+    context["pre"] = pre
+    context["nex"] = nex
+    context["head"] = head
+    context["rear"] = rear
+    context["week_list"] = week_list
+    context["page_num"] = page_num
+    context["page_Max"] = page_Max
+    context["week_content"] = pipei
+    context["page_list"] = page_list
+    context['door'] = settings.DOOR
     return render(request, 'index.html', context)
 
 
@@ -126,7 +130,8 @@ def user_login(request):
                 context['name'] = get_name
                 request.session['id'] = user.id
                 login(request, user)  # 这才是登录，才会写入session
-                return HttpResponseRedirect('/')
+                url = request.GET.get('next', '/')
+                return HttpResponseRedirect(url)
             else:
                 context['statu'] = '1'
                 context['error'] = "您的用户已经被限制,请联系工作人员"
