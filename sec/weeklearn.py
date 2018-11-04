@@ -21,14 +21,16 @@ def week_list(request):
     weeklearns = WeekLearn.objects.filter(learn_task__task_week=week, learn_task__task_direction=user_direction).order_by("learn_time")
     profiles = UserProfile.objects.filter(grade=18, direction=user_direction)
     slacker = []
-
+    persion = 0
     for profile in profiles:
         try:
             weeklearns.get(learner=profile.user)
+            persion = persion + 1
         except ObjectDoesNotExist as e:
             slacker.append(profile.user)
         except MultipleObjectsReturned:
-            pass
+            persion = persion + 1
+    context['persion'] = persion
     context['slacker'] = slacker
     context['weeklearns'] = weeklearns
     context['week'] = week
