@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-import sec
-from .models import WeekLearn, WeekTask
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+from .models import WeekLearn, WeekTask, UserProfile
 from datetime import date
 from math import ceil
 
@@ -19,6 +19,17 @@ def week_list(request):
         delta = date.today() - date(2018, 10, 21)
         week = ceil(delta.days / 7)
     weeklearns = WeekLearn.objects.filter(learn_task__task_week=week, learn_task__task_direction=user_direction).order_by("learn_time")
+    profiles = UserProfile.objects.filter(grade=18, direction=user_direction)
+    slacker = []
+
+    for profile in profiles:
+        try:
+            weeklearns.get(learner=profile.user)
+        except ObjectDoesNotExist as e:
+            slacker.append(profile.user)
+        except MultipleObjectsReturned:
+            pass
+    context['slacker'] = slacker
     context['weeklearns'] = weeklearns
     context['week'] = week
     return render(request, 'week_list.html', context)

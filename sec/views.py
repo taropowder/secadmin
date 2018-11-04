@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.conf import settings
 from .models import Blog, CTF_learning, ON_DUTY, Book
 from .models import BlogDirection, UserProfile
@@ -176,8 +177,22 @@ def weekblog(request, week):
         direction = request.GET.get('direction')
         blogs = blogs.filter(new_direction__direction=direction)
         context['direction'] = direction
+        profiles = UserProfile.objects.filter(grade=17, direction=direction)
+    else:
+        profiles = UserProfile.objects.filter(grade=17)
     context['blogs'] = blogs
     context['week'] = week
+    slacker = []
+
+    for profile in profiles:
+        try:
+            blogs.get(blog_user=profile.user)
+        except ObjectDoesNotExist as e:
+            slacker.append(profile.user)
+        except MultipleObjectsReturned:
+            pass
+
+    context['slacker'] = slacker
     return render(request, 'weekblog.html', context)
 
 
