@@ -8,8 +8,8 @@
 					<article id="main">
 						<header>
 							<h2>博客搜索</h2>
-                            <form action="/search/" method="post">
-                                <input type="text" name="name"><br/>
+                            <form action="/search/" method="get">
+                                <input type="text" name="name" value="{{ name }}"><br/>
                                 <input type="submit" value="搜索">
                                 {% csrf_token %}
                             </form>
@@ -24,8 +24,8 @@
 												<tr>
 
 													<th>标题</th>
-													<!--<th>网址</th>-->
                                                     <th>方向</th>
+                                                    <th>作者</th>
                                                     <th>时间</th>
 												</tr>
 											</thead>
@@ -34,9 +34,9 @@
                                             <tr>
 {#													<td>{{ blog.blog_user }}</td>#}
 													<td><a href="{{  blog.url}}" target="_blank">{{  blog.content}}</a></td>
-													<!--<td>{{  blog.url}}</td>-->
                                                     <td>{{ blog.direction }}</td>
-													<td>{{ blog.time }}</td>
+                                                    <td>{{ blog.blog_user }}</td>
+													<td>{{ blog.time | date:'Y-n-d H:i'}}</td>
 												</tr>
                                             {% endfor %}
 

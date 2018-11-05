@@ -19,7 +19,6 @@
 												<tr>
 
 													<th>标题</th>
-													<th>网址</th>
                                                     <th>方向</th>
                                                     <th>时间</th>
 												</tr>
@@ -27,11 +26,9 @@
 											<tbody>
                                             {% for blog in blogs %}
                                             <tr>
-{#													<td>{{ blog.blog_user }}</td>#}
 													<td><a href="{{  blog.url}}" target="_blank">{{  blog.content}}</a></td>
-													<td>{{  blog.url}}</td>
-                                                    <td>{{ blog.direction }}</td>
-													<td>{{ blog.time }}</td>
+                                                    <td>{{ blog.new_direction }}</td>
+													<td>{{ blog.time | date:'Y-n-d H:i'}}</td>
 												</tr>
                                             {% endfor %}
 

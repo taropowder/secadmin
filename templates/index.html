@@ -4,7 +4,14 @@
 				<!-- Banner -->
 					<section id="banner">
 						<div class="inner">
-							<h2>711实验室博客提交平台</h2>
+							<h2>711实验室综合管理平台</h2>
+                            <h3>实验室是否开门 {% if door %}
+                                ✅
+                                {% else %}
+                                ❌
+                            {% endif %}</h3>
+                 <a href="doorclose/" style="background-color:#d3100d" class="button special" >关门</a>
+
 							<p>请提交本周博客<br />
 							<!--site template freebie<br />-->
 {#							crafted by <a href="http://123.206.74.236">taropowder</a>.</p>#}
@@ -16,14 +23,18 @@
 					</section>
 
 				<!-- One -->
-    {% for key,value in week_content.items %}
+    {% for key in week_list %}
         <section id="one" class="wrapper style1 special">
 						<div class="inner">
 							<header class="major">
-                                <h2><a href="/blog/{{ key }}/"> 第{{key}}周博客一览</a></h2>
+                                <h2><a href="/blog/{{ key }}/"> 第{{ key }}周博客一览</a></h2>
 								<ul style="list-style-type:none">
-                                    {% for v in value %}
-                                    <li><a href="{{ v.url }}" target="_blank">{{ v.content }}</a></li>
+                                    {% for m,k in week_content.items %}
+                                    	{% ifequal key m %}
+                                    		{% for v in k %}
+                                    			<li><a href="{{ v.url }}"style="color:white;" target="_blank">{{ v.content }}</a></li>
+                                    		{% endfor %}
+                                    	{% endifequal %}
                                     {% endfor %}
 								</ul>
 
@@ -42,43 +53,56 @@
     {% endfor %}
 
 <div style='text-align: center;'>
+	<style name="page">
+	a,
+	a{
+		color:yellow;
+	}
+	a:hover{
+		color:red;
+	}
+	</style>
 	<table>
-	{# 上一页 #}
+	<td><p><-最新</p></td>
 	<td>
-	{% if head %}
-		<a href="?page={{pre}}"><span>上一页</span></a>
+	{% if rear %}
+		<a href="?page={{nex}}"><span><<</span></a>
 	{% else %}
-		<a><p color="red">到头了</p></a>
+		<p><<</p>
 	{% endif %}
-    </td>
+	</td>
 
 	{# 打印所有页码 #}
 	{% for page in page_list %}
 		<td>
 		{% if page == page_num %}
-				<a href="?page={{page}}" class="color:red;">
-					<span>
-						{{page}}
-					</span>
-				</a>
+			<a href="?page={{page}}" style="color:red;">
+				<span>
+					{{page}}
+				</span>
+			</a>
 		{% else %}
+			{% if page == '...' %}
+				<a>{{page}}</a>
+			{% else %}
 				<a href="?page={{page}}">
-					<span>
-						{{page}}
-					</span>
+				<span>
+					{{page}}
+				</span>
 				</a>
+			{% endif %}
 		{% endif %}
 		</td>
 	{% endfor %}
 	
-	{# 下页 #}
 	<td>
-	{% if rear %}
-		<a href="?page={{nex}}"><span>下一页</span></a>
+	{% if head %}
+		<a href="?page={{pre}}"><span>>></span></a>
 	{% else %}
-		<a><p color="red">到尾了</p></a>
+		<p>>></p>
 	{% endif %}
-	</td>
+    </td>
+    <td>最早-></td>
     </table>
 </div>
 

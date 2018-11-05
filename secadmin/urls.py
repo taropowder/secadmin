@@ -15,12 +15,17 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
-from sec import views,vul
+from sec import views, vul, weeklearn, doorcard
 from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.home),
+    url(r'^submit_week_learn/', weeklearn.submit_week_learn),
+    url(r'^doorcard/', doorcard.door),
+    url(r'^doorclose/', doorcard.close),
+    url(r'^changepersion/', views.change_persion),
+    url(r'^week_list/', weeklearn.week_list),
     url(r'^submit/', views.submit),
     url(r'^vul_review/$', vul.vul_review),
     url(r'^vul_add/$', vul.vul_add),
@@ -29,7 +34,8 @@ urlpatterns = [
     url(r'^ranking/', vul.ranking),
     url(r'^login/', views.user_login),
     url(r'^changeblog/', views.changeblog),
-    url(r'^change/(\d+)/', views.change,name='change_id'),
+    url(r'^random_week/', views.random_week),
+    url(r'^change/(\d+)/', views.change, name='change_id'),
     url(r'^register/', views.register),
     url(r'^blog/(\d+)/$', views.weekblog, name='week'),
     url(r'^myblog/(\d+)/$', views.myblog, name='user_id'),

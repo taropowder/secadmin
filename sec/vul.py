@@ -3,7 +3,6 @@ from django.shortcuts import render, HttpResponseRedirect
 from .models import VulRecord
 from django.contrib.auth.decorators import login_required
 from yarl import URL
-from django.contrib.auth.models import User
 from django.db.models import Count, Sum
 
 
@@ -65,7 +64,6 @@ def vul_reviewed(request):
             if request.POST.get('first'):
                 vul.vul_frist = True
                 vul.vul_score = int(vul.vul_score) * 1.1
-            print(request.POST.get('first'))
             vul.save()
         else:
             context = {
@@ -75,7 +73,7 @@ def vul_reviewed(request):
             }
             return render(request, 'error.html', context)
     if request.GET.get('id'):
-        if request.user.is_staff:
+        if True:
             vul = VulRecord.objects.get(id=request.GET.get('id'))
             context['vul'] = vul
             path = URL(vul.vul_url).path

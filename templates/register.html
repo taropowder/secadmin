@@ -14,20 +14,29 @@
 							<div class="inner">
 								<section>
 									<form method="post" action="/register/">
-										<div class="row uniform">
-											<div class="6u 12u$(xsmall)">
-												<input type="text" name="name"   placeholder="昵称" />
-											</div>
-											<div class="6u$ 12u$(xsmall)">
-												<input type="password" name="password"   placeholder="密码" />
-											</div>
-                                            <div class="6u$ 12u$(xsmall)">
-												<input type="text" name="firstname"   placeholder="姓名" />
-											</div>
-                                             <div class="6u$ 12u$(xsmall)">
-												<input type="text" name="eamil"   placeholder="email" />
-											</div>
-											<div class="12u$">
+                                        <table>
+                                            <tr>
+                                                <td><input type="text" name="name"   placeholder="昵称（不要带空格）" /></td>
+                                                <td><input type="password" name="password"   placeholder="密码" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" name="firstname"   placeholder="姓名" /></td>
+                                                <td><input type="text" name="student_id"   placeholder="学号" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" name="phone"   placeholder="电话" /></td>
+                                                <td><input type="text" name="email"   placeholder="email" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" name="qq"   placeholder="QQ" /></td>
+                                                <td><select name="direction" id="demo-category">
+														<option value="">- 研究方向 -</option>
+                                                        <option value="sec">网安</option>
+                                                        <option value="dat">大数据</option>
+													</select></td>
+                                            </tr>
+                                        </table>
+											<div class="12u$" align="center">
 												<ul class="actions">
 													       {% csrf_token %}
 													<li><input type="submit" value="注册" class="special" /></li>

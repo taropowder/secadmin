@@ -5,7 +5,10 @@
 					<article id="main">
 						<header>
 							<h2>第{{ week }}周博客</h2>
-
+                            <div align="center">
+                                 <a href="?direction=sec" class="button special" >网安</a>
+                                 <a href="?direction=dat" class="button special" >大数据</a>
+                            </div>
 						</header>
 						<section class="wrapper style5">
 							<div class="inner">
@@ -16,7 +19,6 @@
 												<tr>
 													<th>姓名</th>
 													<th>标题</th>
-													<th>网址</th>
                                                     <th>方向</th>
                                                     <th>时间</th>
 												</tr>
@@ -25,10 +27,9 @@
                                             {% for blog in blogs %}
                                             <tr>
 													<td><a href="/myblog/{{ blog.blog_user.id }}/">{{ blog.blog_user }}</a> </td>
-													<td><a href="{{  blog.url}}" target="_blank">{{  blog.content}}</a></td>
-													<td>{{  blog.url}}</td>
-                                                    <td>{{ blog.direction }}</td>
-													<td>{{ blog.time }}</td>
+													<td><a href="{{ blog.url }}" target="_blank"> {{  blog.content}}</a></td>
+                                                    <td>{{ blog.new_direction }}</td>
+													<td>{{ blog.time | date:'Y-n-d H:i'}}</td>
 												</tr>
                                             {% endfor %}
 											</tbody>
@@ -37,7 +38,7 @@
 								</section>
 
                             <div align="center">
-                                 <a href="/myblog/{{ man }}/" class="button special" >Random Show</a>
+                                 <a href="/random_week/?random={{ week }}&direction={{ direction }}" class="button special" >Random Show</a>
                             </div>
 
 							</div>

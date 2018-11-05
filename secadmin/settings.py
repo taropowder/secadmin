@@ -105,3 +105,5 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/login/'
 MEDIA_ROOT = 'sec/static/'
 MEDIA_URL = 'static/'
+
+DOOR = False
