@@ -162,6 +162,11 @@ def register(request):
         profile.direction = request.POST.get('direction')
         profile.phone = request.POST.get('phone')
         profile.student_id = request.POST.get('student_id')
+        a = User.objects.filter(student_id=profile.student_id)
+        if a:
+            context['statu'] = 1
+            context['error'] = '该学号已被使用'
+            return render(request, 'register.html', context)
         profile.qq = request.POST.get('qq')
         profile.grade = profile.student_id[0:2]
         profile.save()
