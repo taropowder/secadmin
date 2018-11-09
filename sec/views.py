@@ -39,6 +39,12 @@ def home(request):
     week_list = []
     all_week_set = set()
     all_week_list = []
+    pre = 1
+    nex = 0
+    head = True
+    rear = True
+    page_num = 0
+    page_Max = 0
     weeks = Blog.objects.values('week').order_by('week')
     if weeks:
         week_count = 0
