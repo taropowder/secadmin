@@ -35,16 +35,17 @@ def get_page_list(page_num, page_Max):
 def home(request):
     context = {}
     pipei = {}
-    page_list = []
+    page_list = [1]
     week_list = []
     all_week_set = set()
     all_week_list = []
     pre = 1
-    nex = 0
-    head = True
-    rear = True
-    page_num = 0
-    page_Max = 0
+    nex = 1
+    head = False
+    rear = False
+    week_content = []
+    page_num = 1
+    page_Max = 1
     weeks = Blog.objects.values('week').order_by('week')
     if weeks:
         week_count = 0
