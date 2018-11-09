@@ -154,20 +154,29 @@ def register(request):
             return render(request, 'register.html', context)
         password = request.POST.get('password')
         email = request.POST.get('email')
-        user = User.objects.create_user(name, email, password)
-        user.first_name = request.POST.get('firstname')
-        user.save()
+
+        first_name = request.POST.get('firstname')
+        a = User.objects.filter(first_name=first_name)
+        if a:
+            context['statu'] = 1
+            context['error'] = '该姓名已被使用'
+            return render(request, 'register.html', context)
+
         profile = UserProfile()
-        profile.user = user
+
         profile.direction = request.POST.get('direction')
         profile.phone = request.POST.get('phone')
         profile.student_id = request.POST.get('student_id')
-        a = User.objects.filter(student_id=profile.student_id)
+        a = UserProfile.objects.filter(student_id=profile.student_id)
         if a:
             context['statu'] = 1
             context['error'] = '该学号已被使用'
             return render(request, 'register.html', context)
         profile.qq = request.POST.get('qq')
+        user = User.objects.create_user(name, email, password)
+        profile.user = user
+        user.first_name = first_name
+        user.save()
         profile.grade = profile.student_id[0:2]
         profile.save()
         context['name'] = name
