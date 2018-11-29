@@ -60,13 +60,13 @@ class DoorCardAdmin(admin.ModelAdmin):
 
 @admin.register(VulRecord)
 class VulRecordAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'vul_finder', 'vul_review_people', 'vul_review')
+    list_display = ('id', 'title', 'vul_finder', 'vul_ac', 'vul_au', 'vul_review_people', 'vul_review')
     list_display_links = ('id', 'title')
     list_filter = ('vul_review', 'vul_type', 'vul_finder', 'vul_review_people')
 
     def title(self, obj):
         return obj.vul_url + "：" + obj.get_vul_type_display()
-
+    
 
 @admin.register(WeekLearn)
 class WeekLearnAdmin(admin.ModelAdmin):
@@ -78,7 +78,10 @@ class WeekLearnAdmin(admin.ModelAdmin):
         return str(obj.learner) + "：" + str(obj.learner.first_name)
 
     def direction_task(self, obj):
-        return str(obj.learn_task.get_task_direction_display())
+        if obj.learn_task:
+            return str(obj.learn_task.get_task_direction_display())
+        else:
+            return "unkonw"
 
 
 @admin.register(UserProfile)

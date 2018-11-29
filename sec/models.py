@@ -110,6 +110,20 @@ class VulRecord(models.Model):
     vul_image = models.ImageField(upload_to='vul/%Y/%m', verbose_name="复现图", null=True, blank=True)
     vul_fix = models.TextField(null=True)
     vul_frist = models.BooleanField(default=False)
+    AC_CHOICE = {
+        ('3.5', '高'),
+        ('0.61', '中'),
+        ('0.71', '低'),
+
+    }
+    AU_CHOICE = {
+        ('0.45', 'multiple'),
+        ('0.56', 'single'),
+        ('0.704', 'none'),
+
+    }
+    vul_ac = models.CharField("攻击复杂度", max_length=10, choices=AC_CHOICE, null=True)
+    vul_au = models.CharField("认证", max_length=10, choices=AU_CHOICE, null=True)
 
     def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
         return self.vul_url + "：" + self.get_vul_type_display()
@@ -172,7 +186,7 @@ class DoorCard(models.Model):
 
     owner = models.OneToOneField(User)
     number = models.CharField('编号', max_length=10)
-    get_time =models.DateTimeField(auto_now=True)
+    get_time = models.DateTimeField(auto_now=True)
     status = models.CharField("门卡状态", max_length=10, choices=STATUS_CHOICES, default='unknow')
 
     def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
