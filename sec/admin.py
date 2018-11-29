@@ -60,13 +60,19 @@ class DoorCardAdmin(admin.ModelAdmin):
 
 @admin.register(VulRecord)
 class VulRecordAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'vul_finder', 'vul_ac', 'vul_au', 'vul_review_people', 'vul_review')
+    list_display = ('id', 'title', 'vul_finder', 'vul_ac', 'vul_au', 'vul_review_people', 'vul_review', 'ability')
     list_display_links = ('id', 'title')
     list_filter = ('vul_review', 'vul_type', 'vul_finder', 'vul_review_people')
 
+    def ability(self, obj):
+        if obj.vul_ac:
+            return 20 * float(obj.vul_ac) * float(obj.vul_au) * 1
+        else:
+            return '未知'
+
     def title(self, obj):
         return obj.vul_url + "：" + obj.get_vul_type_display()
-    
+
 
 @admin.register(WeekLearn)
 class WeekLearnAdmin(admin.ModelAdmin):
