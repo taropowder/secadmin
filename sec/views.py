@@ -35,10 +35,17 @@ def get_page_list(page_num, page_Max):
 def home(request):
     context = {}
     pipei = {}
-    page_list = []
+    page_list = [1]
     week_list = []
     all_week_set = set()
     all_week_list = []
+    pre = 1
+    nex = 1
+    head = False
+    rear = False
+    week_content = []
+    page_num = 1
+    page_Max = 1
     weeks = Blog.objects.values('week').order_by('week')
     if weeks:
         week_count = 0
@@ -154,15 +161,29 @@ def register(request):
             return render(request, 'register.html', context)
         password = request.POST.get('password')
         email = request.POST.get('email')
-        user = User.objects.create_user(name, email, password)
-        user.first_name = request.POST.get('firstname')
-        user.save()
+
+        first_name = request.POST.get('firstname')
+        a = User.objects.filter(first_name=first_name)
+        if a:
+            context['statu'] = 1
+            context['error'] = '该姓名已被使用'
+            return render(request, 'register.html', context)
+
         profile = UserProfile()
-        profile.user = user
+
         profile.direction = request.POST.get('direction')
         profile.phone = request.POST.get('phone')
         profile.student_id = request.POST.get('student_id')
+        a = UserProfile.objects.filter(student_id=profile.student_id)
+        if a:
+            context['statu'] = 1
+            context['error'] = '该学号已被使用'
+            return render(request, 'register.html', context)
         profile.qq = request.POST.get('qq')
+        user = User.objects.create_user(name, email, password)
+        profile.user = user
+        user.first_name = first_name
+        user.save()
         profile.grade = profile.student_id[0:2]
         profile.save()
         context['name'] = name
